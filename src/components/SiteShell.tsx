@@ -17,12 +17,24 @@ export function SiteShell({ children }: { children: ReactNode }) {
       </header>
       <main className="flex-1">{children}</main>
       <footer className="border-t border-border mt-20">
-        <div className="mx-auto max-w-7xl px-6 py-10 flex flex-col md:flex-row justify-between gap-4">
-          <div>
-            <p className="font-display">For more information, contact us</p>
-            <a href="mailto:owenwogu651@gmail.com" className="text-primary font-mono text-sm hover:underline">owenwogu651@gmail.com</a>
+        <div className="mx-auto max-w-7xl px-6 py-10">
+          <div className="flex flex-col md:flex-row justify-between gap-4">
+            <div>
+              <p className="font-display">For more information, contact us</p>
+              <a href="mailto:owenwogu651@gmail.com" className="text-primary font-mono text-sm hover:underline">owenwogu651@gmail.com</a>
+            </div>
+            <p className="text-muted-foreground text-sm font-mono">© Biosynex Atlas</p>
           </div>
-          <p className="text-muted-foreground text-sm font-mono">© Biosynex Atlas</p>
+          <div className="mt-8 border-t border-border pt-6 text-sm leading-relaxed text-muted-foreground">
+            <p>
+              <span className="font-display text-foreground">Educational use notice:</span> Biosynex Atlas is for
+              educational purposes only. It is not medical advice, a clinical guideline, or a substitute for
+              manufacturer instructions, institutional protocols, professional training, or qualified clinical
+              judgement. All resources used on this site are properly cited and credited to their respective owners
+              where they appear and in the references/resources sections. If you believe a source is missing or
+              incorrectly credited, please contact us.
+            </p>
+          </div>
         </div>
       </footer>
     </div>

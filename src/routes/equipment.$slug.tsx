@@ -137,6 +137,17 @@ function DevicePage() {
                 </ul>
               </article>
             )}
+            <article className="rounded-xl border border-border bg-card p-6">
+              <h2 className="font-display text-xl">Educational Use &amp; Sources</h2>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                This {device.name} page is for educational purposes only. It is not medical advice, a clinical
+                guideline, or an instruction to operate, service, diagnose, or treat with this equipment. Always
+                follow the manufacturer&apos;s instructions, your institution&apos;s protocols, and qualified
+                professional supervision. All resources used are properly cited and credited to their respective
+                owners where they appear on this page and in the references and further-study sections above.
+                External links belong to their respective owners, and linking to them does not imply endorsement.
+              </p>
+            </article>
           </div>
         </section>
 
