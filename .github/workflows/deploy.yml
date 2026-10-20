@@ -34,10 +34,13 @@ jobs:
       - name: Build Project
         run: bun run build
 
+      - name: Add SPA fallback (404.html)
+        run: cp dist/client/index.html dist/client/404.html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./.output/public
+          path: ./dist/client
 
       - name: Deploy to GitHub Pages
         id: deployment

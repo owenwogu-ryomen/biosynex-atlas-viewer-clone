@@ -9,14 +9,18 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
     server: { entry: "server" },
+    // Static-site generation for GitHub Pages: prerender every route to plain HTML.
+    prerender: {
+      enabled: true,
+      crawlLinks: true,
+    },
+    pages: [{ path: "/", prerender: { enabled: true } }],
   },
   // Base path for this repository's own GitHub Pages deployment.
   vite: {
     base: '/biosynex-atlas-viewer-clone/',
   },
-  nitro: {
-    preset: "static"
-  }
+  // No server runtime on GitHub Pages — Start's prerendered output is the deployable site.
+  nitro: false
 });
