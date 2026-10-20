@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteShell } from "@/components/SiteShell";
 import { ViewerFrame } from "@/components/ViewerFrame";
 import { categories, categoryInfo, devices, getDevice, resources } from "@/data/equipment";
-import ventilatorDiagram from "@/assets/ventilator-working-principle.svg.asset.json";
+import ventilatorDiagramUrl from "@/assets/ventilator-working-principle.svg?url";
 
 export const Route = createFileRoute("/equipment/$slug")({
   loader: ({ params }) => {
@@ -67,16 +67,23 @@ function DevicePage() {
           <h1 className="font-display text-4xl mt-2">{device.name}</h1>
           <p className="mt-2 text-muted-foreground">{device.summary}</p>
           <ViewerFrame
+            key={device.slug}
             title={device.name}
             embedUrl={device.embedUrl}
             embedHtml={device.embedHtml}
+            posterUrl={device.posterUrl}
+            posterCredit={device.posterCredit}
+            posterCreditUrl={device.posterCreditUrl}
+            posterFit={device.posterFit}
+            modelCredit={device.modelCredit}
+            modelCreditUrl={device.modelCreditUrl}
             emptyTitle="3D viewer"
             emptyBody="The 3D model for this device will appear here once its embed is added."
           />
           {device.slug === "mechanical-ventilator" && (
             <figure className="mt-6 rounded-xl border border-border bg-card p-4">
-              <img src={ventilatorDiagram.url} alt="Medical ventilator working principle and gas flow diagram" className="w-full rounded-lg" />
-              <figcaption className="mt-3 text-sm text-muted-foreground">Working principle and gas flow pathway of the medical ventilator.</figcaption>
+              <img src={ventilatorDiagramUrl} alt="Animated diagram showing how air travels through a medical ventilator, step by step" className="w-full rounded-lg" />
+              <figcaption className="mt-3 text-sm text-muted-foreground">How air travels through the ventilator, step by step. Blue = fresh air in, orange = used air out, purple = sensor messages back to the computer.</figcaption>
             </figure>
           )}
           <div className="mt-8 space-y-6">

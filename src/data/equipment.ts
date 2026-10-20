@@ -1,3 +1,5 @@
+import ventilatorPoster from "../assets/mechanical-ventilator-illustration.jpg?url";
+
 // Add a new device by copying one object below. Paste a Spline/Sketchfab
 // iframe URL into `embedUrl`, or full embed HTML (iframe) into `embedHtml`.
 
@@ -46,6 +48,12 @@ export type Device = {
   risk?: string;
   embedUrl?: string;
   embedHtml?: string;
+  posterUrl?: string;
+  posterCredit?: string;
+  posterCreditUrl?: string;
+  posterFit?: "cover" | "contain";
+  modelCredit?: string;
+  modelCreditUrl?: string;
   workingPrinciples: string[];
   clinicalUses: string[];
   components?: { name: string; detail: string }[];
@@ -58,35 +66,35 @@ export const devices: Device[] = [
     slug: "mri-scanner",
     name: "MRI Scanner",
     category: "Diagnostic Imaging",
-    risk: "Medium to High (strong magnetic fields)",
-    summary: "Magnetic resonance imaging for high-contrast soft-tissue images without ionising radiation.",
+    risk: "Medium to High — the magnet is very strong, so loose metal objects and some implants can be dangerous near it",
+    summary: "Uses a powerful magnet and radio waves to make detailed pictures of soft tissues — such as the brain, muscles, and organs — without X-ray radiation.",
     embedUrl: "",
     workingPrinciples: [
-      "A strong static magnetic field (B0, typically 1.5 T or 3.0 T) aligns hydrogen protons, which precess at the Larmor frequency.",
-      "An RF pulse tuned to the Larmor frequency tips the spins into the transverse plane (excitation).",
-      "As protons relax they emit RF signals; contrast comes from proton density and T1/T2 relaxation times.",
-      "Gradient coils encode position along X, Y and Z; signals are reconstructed with Fast Fourier Transforms.",
+      "A very strong magnet (called B0, usually 1.5 T or 3.0 T) lines up tiny hydrogen atoms in the body so they spin together. The speed of that spin is called the Larmor frequency.",
+      "A short radio-wave pulse, tuned to that exact spin speed, knocks the atoms sideways. This is called excitation.",
+      "As the atoms settle back, they give off faint radio signals. Different tissues settle at different speeds (called T1 and T2 times), and that difference creates the contrast in the picture.",
+      "Extra coils (gradient coils) change the magnetic field slightly along the X, Y, and Z directions, so the machine can pinpoint where each signal came from. A computer then builds the image using a maths method called the Fast Fourier Transform (FFT).",
     ],
     clinicalUses: [
-      "Brain and spinal cord imaging",
-      "Musculoskeletal and joint assessment",
-      "Cardiac and abdominal evaluation",
+      "Scanning the brain and spinal cord",
+      "Checking muscles, bones, and joints",
+      "Examining the heart and the organs in the abdomen (belly)",
     ],
     components: [
-      { name: "Main Superconducting Magnet", detail: "Niobium-titanium coils in liquid helium (~4.2 K) keep a homogeneous static field." },
-      { name: "Gradient Coil Assembly", detail: "Three orthogonal coils for slice selection, phase and frequency encoding." },
-      { name: "RF Coils", detail: "Antenna arrays that transmit B1 excitation pulses and capture weak echo signals." },
-      { name: "Cryogenic Cooling System", detail: "Dewars, cold-heads and helium compressors that prevent magnet quenches." },
-      { name: "Image Reconstruction Processor", detail: "Converts raw k-space data into 2D and 3D images using FFT." },
+      { name: "Main Superconducting Magnet", detail: "Coils of niobium-titanium wire kept extremely cold in liquid helium (about 4.2 K, roughly −269°C) so they carry electricity with no resistance and keep the magnetic field strong and steady." },
+      { name: "Gradient Coil Assembly", detail: "Three coils — for the X, Y, and Z directions — that pinpoint where each signal comes from: choosing the slice to image and encoding its position." },
+      { name: "RF Coils", detail: "Antennas placed close to the body. They send out the radio-wave pulses and listen for the faint signals (echoes) coming back." },
+      { name: "Cryogenic Cooling System", detail: "The cooling equipment — helium containers (dewars), cold-heads, and compressors — that keeps the magnet cold and prevents a sudden shutdown called a quench." },
+      { name: "Image Reconstruction Processor", detail: "The computer that turns the raw signal data (called k-space) into 2D and 3D pictures using FFT maths." },
     ],
     descriptions: [
       {
         heading: "Overview",
-        body: "MRI relies on nuclear magnetic resonance to generate high-contrast images of soft tissue. The patient lies inside a high-strength static magnetic field, and radiofrequency pulses are used to excite and then listen to hydrogen protons in body tissue.",
+        body: "MRI uses a strong magnet and radio waves to make clear pictures of soft tissue — parts of the body such as the brain, muscles, and organs. The patient lies inside the magnet while radio-wave pulses nudge the hydrogen atoms in their body, and the machine listens to the tiny signals those atoms send back.",
       },
       {
         heading: "Signal Path",
-        body: "The magnet bore houses the superconducting coils. Inside sits the gradient coil assembly, and closest to the patient are the RF transmit/receive coils. Signals flow from the RF coils into low-noise pre-amplifiers, analog-to-digital converters, and finally the image reconstruction processor.",
+        body: "The round tunnel (bore) holds the superconducting magnet coils. Inside it sits the gradient coil assembly, and closest to the patient are the RF coils that send and receive signals. The signals pass through quiet amplifiers (pre-amplifiers), are converted into digital form, and finally reach the computer that builds the images.",
       },
     ],
   },
@@ -94,43 +102,48 @@ export const devices: Device[] = [
     slug: "mechanical-ventilator",
     name: "Mechanical Ventilator",
     category: "Life Support & Critical Care",
-    risk: "High / Life-Critical (associated with potential complications such as ventilator-associated pneumonia, barotrauma, pneumothorax, atelectasis, and vocal cord trauma)",
-    summary: "An automated positive-pressure life support device designed to augment or substitute human respiratory muscles.",
+    risk: "High / Life-Critical — possible complications include lung infection linked to the breathing tube (ventilator-associated pneumonia), lung injury from pressure (barotrauma), air leaking around the lung (pneumothorax), partly collapsed lung areas (atelectasis), and vocal cord injury",
+    summary: "A life-support machine that breathes for a patient — or helps them breathe — when their own breathing muscles cannot do the job well enough.",
     embedUrl: "https://sketchfab.com/models/a03a99fab9314aab96fd41ec69acf1a3/embed?autostart=1&camera=0&transparent=1&ui_hint=2",
+    posterUrl: ventilatorPoster,
+    posterCredit: "Illustration © Encyclopaedia Britannica, Inc.",
+    posterFit: "contain",
+    modelCredit: "3D model: Medical Ventilator by lazarys on Sketchfab",
+    modelCreditUrl: "https://sketchfab.com/3d-models/medical-ventilator-a03a99fab9314aab96fd41ec69acf1a3",
     workingPrinciples: [
-      "Microprocessor-Controlled Pneumatics: Operates using closed-loop logic in either volume-controlled or pressure-controlled modes to manage air delivery.",
-      "High-Pressure Metering: Pipeline gas (~50 psi / 400 kPa) passes through proportional solenoid valves that meter flow and blend precise oxygen ratios.",
-      "Positive-Pressure Inflation: Forces oxygenated gas into the lungs to overcome thoracic resistance and expand collapsed alveoli.",
-      "Passive Recoil & PEEP Retention: Exhaled gas returns via the expiratory limb where a PEEP valve maintains residual end-expiratory pressure to prevent lung sac collapse.",
+      "Computer-controlled breathing: A microprocessor (a small computer) uses sensor feedback to control every breath. It can deliver a set amount of air each time (volume-controlled) or a set pressure (pressure-controlled).",
+      "Measured gas supply: Medical air and oxygen arrive under pressure (about 50 psi / 400 kPa). Electric valves (proportional solenoid valves) measure the flow and mix the gases to give the exact oxygen percentage needed.",
+      "Gentle positive pressure: The machine pushes oxygen-rich gas into the lungs, helping to open the tiny air sacs (alveoli) so oxygen can pass into the blood.",
+      "Breathing out with PEEP: The lungs relax and used air flows back through the breathing-out tube (expiratory limb). A PEEP valve leaves a little pressure in the lungs at the end of the breath so the tiny air sacs do not completely collapse.",
     ],
     clinicalUses: [
-      "Respiratory Failure Treatment: Deployed in critical conditions such as Acute Respiratory Distress Syndrome (ARDS), pneumonia, COPD exacerbations, asthma, stroke, sepsis, or traumatic brain injury where pulmonary oxygenation fails.",
-      "Surgical Anesthesia Support: Takes over mechanical ventilation during surgical procedures when general anesthesia and neuromuscular blockade suppress natural breathing drives.",
-      "Invasive vs. Non-Invasive Support: Administered non-invasively via face masks (e.g., CPAP/BiPAP) for lighter respiratory assistance or invasively via endotracheal intubation or tracheostomy for full life support.",
+      "When breathing fails: Supports patients whose lungs cannot take in enough oxygen — for example severe lung injury (ARDS), pneumonia, a flare-up of COPD, asthma attacks, stroke, sepsis (a life-threatening reaction to infection), or traumatic brain injury.",
+      "During surgery: Breathes for the patient while general anaesthesia and muscle-relaxing medicines temporarily stop their own breathing effort.",
+      "Two ways of giving support: Through a tight-fitting face mask (non-invasive, such as CPAP or BiPAP) for lighter help, or through a breathing tube placed in the windpipe — via the mouth (endotracheal tube) or the neck (tracheostomy) — for full life support.",
     ],
     components: [
-      { name: "Pneumatic Gas Supply & Inlet Regulators", detail: "Accepts high-pressure medical air and pure oxygen lines (~50 psi / 400 kPa) and stabilizes incoming pressure before internal routing." },
-      { name: "Gas Blender (Proportioning Valve Assembly)", detail: "Electromechanically mixes medical air and oxygen to deliver precise, tailored FiO2 concentrations (from 21% ambient to 100% pure oxygen)." },
-      { name: "Microprocessor Unit & Solenoid Control Valves", detail: "Acts as the central command center, using proportional valves to regulate breath timing, inspiratory flow, and pressure limits." },
-      { name: "Heated Humidifier & Conditioning System", detail: "Heats incoming dry gas to approximately 37°C and adds 100% relative humidity to prevent sore throats, thick secretions, and mucosal injury." },
-      { name: "Patient Breathing Circuit (Inspiratory & Expiratory Limbs)", detail: "A flexible dual-tube corrugated system that isolates the sterile inspiratory pathway from the exhaled carbon dioxide return line." },
-      { name: "Patient Interface (Breathing Tube / Mask)", detail: "Delivers pressurized gas directly into the trachea via an invasive endotracheal/tracheostomy tube or non-invasively via a tight-fitting facial mask." },
-      { name: "Expiratory PEEP Valve & Pathogen Filter", detail: "Regulates exhalation resistance to maintain Positive End-Expiratory Pressure (PEEP) while trapping viral/bacterial aerosols to protect clinical personnel." },
-      { name: "Inline Monitoring Sensors (Flow, Pressure, & FiO2)", detail: "Utilizes silicon wafer pressure transducers, hot-wire anemometers, and galvanic oxygen cells to transmit continuous, real-time feedback to the central computer." },
-      { name: "Digital Display Monitor & Safety Alarms", detail: "Displays live pressure/volume waveforms and patient vitals while triggering visual/audible alarms for disconnects, pressure spikes, or power anomalies." },
+      { name: "Pneumatic Gas Supply & Inlet Regulators", detail: "Where medical air and pure oxygen enter under pressure (about 50 psi / 400 kPa). The regulators steady that pressure before the gas travels further inside." },
+      { name: "Gas Blender (Proportioning Valve Assembly)", detail: "Mixes medical air and oxygen to give the exact oxygen percentage prescribed — this percentage is called FiO2. It ranges from 21% (normal air) to 100% pure oxygen." },
+      { name: "Microprocessor Unit & Solenoid Control Valves", detail: "The machine's brain. It opens and closes the control valves to decide when each breath starts, how much air flows, and how much pressure is applied." },
+      { name: "Heated Humidifier & Conditioning System", detail: "Warms the dry gas to body temperature (about 37°C) and adds moisture (100% relative humidity), protecting the airway lining and preventing mucus from becoming thick and dry." },
+      { name: "Patient Breathing Circuit (Inspiratory & Expiratory Limbs)", detail: "Two flexible, ribbed (corrugated) tubes: one carries fresh gas to the patient (inspiratory limb), and the other carries used, carbon-dioxide-rich air away (expiratory limb)." },
+      { name: "Patient Interface (Breathing Tube / Mask)", detail: "The connection to the patient: either a breathing tube into the windpipe — through the mouth (endotracheal) or an opening in the neck (tracheostomy) — or a tight-fitting face mask." },
+      { name: "Expiratory PEEP Valve & Pathogen Filter", detail: "Controls how easily used air leaves, so a small pressure (PEEP) stays in the lungs to keep the air sacs partly open. The filter traps germs in the outgoing air to protect staff and others nearby." },
+      { name: "Inline Monitoring Sensors (Flow, Pressure, & FiO2)", detail: "Sensors constantly measure airflow, pressure, and oxygen level (FiO2) and send the readings to the computer, which fine-tunes each breath. They include pressure transducers, hot-wire flow sensors, and oxygen cells." },
+      { name: "Digital Display Monitor & Safety Alarms", detail: "The screen shows live breathing waveforms (pressure and volume graphs) and measurements. Alarms sound and flash if a tube disconnects, pressure rises too high, or power fails." },
     ],
     descriptions: [
       {
         heading: "Overview",
-        body: "A mechanical ventilator is an automated positive-pressure life support device designed to augment or substitute human respiratory muscles when a patient is unable to maintain adequate independent gas exchange. Operating like controlled bellows, the machine supplies oxygen-rich air to saturate the blood while simultaneously clearing carbon dioxide waste from the body during severe respiratory failure or general surgical anesthesia.",
+        body: "A mechanical ventilator is a life-support machine that breathes for a patient — fully or partly — when they cannot breathe well enough on their own. It works like a carefully controlled bellows: it pushes oxygen-rich air into the lungs so oxygen can reach the blood, and it clears out carbon dioxide. It is used during severe breathing failure and during surgery under general anaesthesia.",
       },
       {
-        heading: "Pneumatic Flow Pathway",
-        body: "1. Gas Inflow & Pressure Regulation: High-pressure medical air and pure oxygen supplies (typically ~50 psi / 400 kPa) feed into pressure-reducing inlet regulators from wall pipelines or mini-compressors.\n2. Proportioning & Blending: The gases enter an internal gas blender where proportional solenoid valves adjust the mixture to deliver the precise prescribed fraction of inspired oxygen (FiO2, ranging from 21% to 100%).\n3. Inspiratory Flow Control: A microprocessor-driven inspiratory control valve meters tidal volume, gas flow rate, and peak airway pressure according to the set ventilation mode.\n4. Gas Conditioning: The gas stream flows through a heated humidifier, warming the air to body temperature (~37°C) and saturating it with moisture to protect sensitive bronchial mucosa.\n5. Inspiratory Delivery & Lung Inflation: Conditioned gas travels down the corrugated inspiratory limb and through an artificial airway (endotracheal tube, tracheostomy, or face mask) under positive pressure to inflate the pulmonary alveoli.\n6. Expiratory Return & PEEP: During passive exhalation, carbon dioxide-laden gas returns along the expiratory limb, passes through a protective bacterial/pathogen filter, and vents past a solenoid PEEP valve that maintains baseline airway pressure to prevent alveolar deflation.",
+        heading: "How the Air Travels (Gas Flow Pathway)",
+        body: "1. Gas enters: Medical air and pure oxygen arrive under pressure (about 50 psi / 400 kPa) from hospital wall pipelines or small compressors. Regulators at the inlet steady the pressure.\n2. Oxygen is mixed: Inside the gas blender, electric valves mix the air and oxygen to the exact percentage prescribed — called FiO2, from 21% (normal air) to 100% oxygen.\n3. The computer gives a breath: A microprocessor controls the inspiratory valve to deliver the set amount of air (tidal volume), speed of flow, and highest pressure for each breath.\n4. The air is warmed and moistened: The gas passes through a heated humidifier that brings it to body temperature (about 37°C) and adds moisture to protect the soft lining of the airway.\n5. The lungs fill: The warmed gas travels down the breathing-in tube (inspiratory limb) and through a face mask or breathing tube into the lungs, gently inflating the tiny air sacs (alveoli) where oxygen enters the blood.\n6. Used air leaves: The lungs relax and carbon-dioxide-rich air flows back through the breathing-out tube (expiratory limb), through a germ filter, and past the PEEP valve, which keeps a little pressure in the lungs so the air sacs do not collapse completely.",
       },
       {
         heading: "Category Profile",
-        body: "Primary Function: Continuous maintenance or artificial replacement of pulmonary gas exchange during organ failure or general surgery.\nRisk Level: High / Life-Critical (associated with potential complications such as ventilator-associated pneumonia, barotrauma, pneumothorax, atelectasis, and vocal cord trauma).\nRelated Devices: Anesthesia machines, CPAP/BiPAP non-invasive respirators, high-frequency jet ventilators, and Extracorporeal Membrane Oxygenation (ECMO) circuits.",
+        body: "Main job: To keep a patient breathing — taking in oxygen and removing carbon dioxide — when their lungs or breathing muscles cannot do it alone, during organ failure or surgery.\nRisk level: High / life-critical. Possible complications include lung infection linked to the breathing tube (ventilator-associated pneumonia), lung injury from pressure (barotrauma), air leaking around the lung (pneumothorax), partly collapsed lung areas (atelectasis), and vocal cord injury.\nRelated devices: Anaesthesia machines, CPAP/BiPAP mask respirators, high-frequency jet ventilators, and ECMO circuits (machines that add oxygen to the blood outside the body).",
       },
     ],
     references: [

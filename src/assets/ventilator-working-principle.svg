@@ -1,0 +1,270 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 700" width="100%" height="100%" style="background-color: #0f172a; font-family: Verdana, 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;" role="img" aria-labelledby="svgTitle svgDesc">
+  <title id="svgTitle">Medical ventilator working principle and gas flow diagram</title>
+  <desc id="svgDesc">Step-by-step animated diagram: medical air and oxygen enter under pressure, are mixed to the prescribed oxygen percentage, controlled by a computer, warmed and moistened, delivered to the lungs, then leave through a germ filter and PEEP valve while sensors send feedback to the ventilator.</desc>
+  <defs>
+    <style>
+      .title { font-size: 23px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-size: 13px; fill: #94a3b8; }
+      .node-title { font-size: 14px; font-weight: 600; fill: #f1f5f9; }
+      .node-sub { font-size: 11px; fill: #94a3b8; }
+      .label-text { font-size: 12.5px; font-weight: 600; fill: #e2e8f0; }
+      .card-title { font-size: 12px; font-weight: 600; fill: #f1f5f9; }
+      .card-text { font-size: 10.5px; fill: #a8b8cc; }
+      .step-num { font-size: 12px; font-weight: 700; fill: #0f172a; text-anchor: middle; }
+
+      /* Animated glowing flow lines: the moving dashes show direction of travel */
+      .flow-insp { stroke: #38bdf8; stroke-dasharray: 9 7; animation: flowAnimation 1.2s linear infinite; }
+      .flow-exp { stroke: #fb923c; stroke-dasharray: 9 7; animation: flowAnimation 1.2s linear infinite; }
+      .flow-signal { stroke: #c084fc; stroke-dasharray: 4 4; animation: flowAnimation 1.8s linear infinite; }
+      @keyframes flowAnimation { from { stroke-dashoffset: 32; } to { stroke-dashoffset: 0; } }
+
+      /* Gentle breathing motion for the lungs */
+      .lung-pulse { animation: lungBreathe 3s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+      @keyframes lungBreathe { 0%, 100% { transform: scale(0.96); opacity: 0.85; } 50% { transform: scale(1.05); opacity: 1; } }
+
+      /* Soft pulsing glow on the numbered step badges, in sequence */
+      .badge { animation: badgePulse 3s ease-in-out infinite; }
+      @keyframes badgePulse { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
+
+      @media (prefers-reduced-motion: reduce) {
+        .flow-insp, .flow-exp, .flow-signal, .lung-pulse, .badge { animation: none; }
+      }
+    </style>
+
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="ventGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="humidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.65" />
+    </linearGradient>
+
+    <filter id="glowBlue" x="-80%" y="-80%" width="260%" height="260%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#38bdf8" flood-opacity="0.9" />
+    </filter>
+    <filter id="glowOrange" x="-80%" y="-80%" width="260%" height="260%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#fb923c" flood-opacity="0.9" />
+    </filter>
+    <filter id="glowPurple" x="-80%" y="-80%" width="260%" height="260%">
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#c084fc" flood-opacity="0.9" />
+    </filter>
+
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#fb923c" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="700" fill="url(#bgGrad)" rx="16" />
+
+  <!-- Header -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">Medical Ventilator: Working Principle &amp; Gas Workflow</text>
+    <text class="subtitle" x="0" y="22">How the machine breathes for a patient, step by step — follow the glowing lines</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(706, 24)">
+    <line x1="0" y1="4" x2="34" y2="4" stroke="#38bdf8" stroke-width="4" />
+    <text class="node-sub" x="42" y="8">Fresh air in (inspiration)</text>
+    <line x1="0" y1="24" x2="34" y2="24" stroke="#fb923c" stroke-width="4" />
+    <text class="node-sub" x="42" y="28">Used air out, with CO₂ (expiration)</text>
+    <line x1="0" y1="44" x2="34" y2="44" stroke="#c084fc" stroke-width="3" stroke-dasharray="4 3" />
+    <text class="node-sub" x="42" y="48">Sensor messages to the computer</text>
+  </g>
+
+  <!-- 1. GAS SUPPLY & BLENDER SECTION -->
+  <g transform="translate(40, 110)">
+    <rect x="0" y="0" width="110" height="45" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text class="node-title" x="13" y="21" font-size="12.5">Medical Air</text>
+    <text class="node-sub" x="13" y="36">≈50 psi • 400 kPa</text>
+
+    <rect x="0" y="60" width="110" height="45" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text class="node-title" x="13" y="81" font-size="12.5">O₂ Supply</text>
+    <text class="node-sub" x="13" y="96">≈50 psi • 400 kPa</text>
+
+    <text class="node-sub" x="0" y="124" fill="#7dd3fc">From wall pipeline or cylinders,</text>
+    <text class="node-sub" x="0" y="139" fill="#7dd3fc">steadied by inlet regulators</text>
+
+    <!-- Blender -->
+    <rect x="150" y="15" width="110" height="75" rx="10" fill="url(#ventGrad)" stroke="#64748b" stroke-width="2"/>
+    <text class="node-title" x="162" y="40" font-size="13">Gas Blender</text>
+    <text class="node-sub" x="162" y="57">Electric valves</text>
+    <text class="node-sub" x="162" y="72">mix to set FiO₂</text>
+    <text class="node-sub" x="162" y="85" fill="#7dd3fc">21% – 100% O₂</text>
+
+    <path d="M 110 22 L 150 35" stroke="#38bdf8" stroke-width="2.5" fill="none" class="flow-insp"/>
+    <path d="M 110 82 L 150 70" stroke="#38bdf8" stroke-width="2.5" fill="none" class="flow-insp"/>
+  </g>
+
+  <!-- 2. MAIN VENTILATOR UNIT -->
+  <g transform="translate(320, 100)">
+    <rect x="0" y="0" width="220" height="240" rx="16" fill="url(#ventGrad)" stroke="#475569" stroke-width="2"/>
+    <rect x="15" y="15" width="190" height="85" rx="8" fill="url(#screenGrad)" stroke="#0284c7" stroke-width="1.5"/>
+
+    <text x="25" y="35" fill="#ffffff" font-size="11" font-weight="700">VENTILATOR MONITOR</text>
+    <path d="M 25 65 Q 40 45, 50 65 T 75 65 T 100 65" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <path d="M 25 82 Q 35 72, 45 82 T 65 82 T 100 82" fill="none" stroke="#4ade80" stroke-width="1.5"/>
+    <text x="118" y="48" fill="#fef08a" font-size="10.5" font-weight="700">Ppeak: 20 cmH₂O</text>
+    <text x="118" y="65" fill="#38bdf8" font-size="10.5" font-weight="700">V_T: 450 mL</text>
+    <text x="118" y="82" fill="#4ade80" font-size="10.5" font-weight="700">Rate: 12 /min</text>
+
+    <rect x="15" y="115" width="190" height="110" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text class="node-title" x="25" y="137" font-size="12.5">Computer &amp; Control Valves</text>
+    <text class="node-sub" x="25" y="157">• Breath size, flow &amp; pressure</text>
+    <text class="node-sub" x="25" y="173">• Volume or pressure mode</text>
+    <text class="node-sub" x="25" y="189">• Sensors: flow • pressure • FiO₂</text>
+    <text class="node-sub" x="25" y="205">• Safety alarms &amp; pressure limits</text>
+  </g>
+
+  <path d="M 300 162 L 320 162" stroke="#38bdf8" stroke-width="4" fill="none" class="flow-insp" filter="url(#glowBlue)"/>
+
+  <!-- 3. HUMIDIFIER -->
+  <g transform="translate(350, 390)">
+    <rect x="0" y="0" width="140" height="90" rx="12" fill="#1e293b" stroke="#0284c7" stroke-width="2"/>
+    <rect x="8" y="38" width="124" height="44" rx="6" fill="url(#humidGrad)"/>
+    <text class="node-title" x="12" y="24">Heated Humidifier</text>
+    <text class="node-sub" x="12" y="53" fill="#e0f2fe">Warms air to ≈37°C</text>
+    <text class="node-sub" x="12" y="67" fill="#e0f2fe">Adds moisture</text>
+    <text class="node-sub" x="12" y="79" fill="#e0f2fe">Protects the airway</text>
+  </g>
+
+  <!-- 4. PATIENT INTERFACE & LUNGS -->
+  <g transform="translate(730, 210)">
+    <rect x="0" y="0" width="220" height="260" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+    <text class="node-title" x="20" y="30">Patient Interface</text>
+    <text class="node-sub" x="20" y="46">Breathing tube / tracheostomy / mask</text>
+
+    <g class="lung-pulse" transform="translate(30, 36)">
+      <path d="M 80 30 L 80 65" stroke="#cbd5e1" stroke-width="10" stroke-linecap="round" fill="none"/>
+      <path d="M 80 30 L 80 65" stroke="#0f172a" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <path d="M 80 65 L 60 85 M 80 65 L 100 85" stroke="#cbd5e1" stroke-width="6" fill="none"/>
+      <path d="M 55 85 C 30 90, 20 130, 35 160 C 50 180, 70 170, 70 140 C 70 110, 65 90, 55 85 Z" fill="#f43f5e" fill-opacity="0.6" stroke="#f43f5e" stroke-width="2"/>
+      <path d="M 105 85 C 130 90, 140 130, 125 160 C 110 180, 90 170, 90 140 C 90 110, 95 90, 105 85 Z" fill="#f43f5e" fill-opacity="0.6" stroke="#f43f5e" stroke-width="2"/>
+    </g>
+
+    <text class="node-sub" x="20" y="234" fill="#cbd5e1" font-weight="600">O₂ into the blood • CO₂ out</text>
+    <text class="node-sub" x="20" y="250" fill="#cbd5e1" font-weight="600">Tiny air sacs (alveoli) inflate</text>
+  </g>
+
+  <!-- 5. FLOW PATHWAYS -->
+  <!-- INSPIRATORY: ventilator down to humidifier -->
+  <path d="M 420 340 L 420 390" stroke="#0284c7" stroke-width="7" fill="none"/>
+  <path id="inspDown" d="M 420 340 L 420 390" class="flow-insp" stroke-width="4" fill="none" marker-end="url(#arrow-blue)" filter="url(#glowBlue)"/>
+
+  <!-- INSPIRATORY LIMB (blue) -->
+  <path d="M 490 435 L 670 435 L 670 300 L 730 300" stroke="#0284c7" stroke-width="7" stroke-linejoin="round" fill="none"/>
+  <path id="inspMain" d="M 490 435 L 670 435 L 670 300 L 730 300" class="flow-insp" stroke-width="4" stroke-linejoin="round" fill="none" marker-end="url(#arrow-blue)" filter="url(#glowBlue)"/>
+  <text x="512" y="424" class="label-text" fill="#38bdf8">Inspiratory limb — breathing-in tube</text>
+
+  <!-- EXPIRATORY LIMB (orange) -->
+  <path d="M 730 260 L 630 260 L 630 200 L 540 200" stroke="#ea580c" stroke-width="7" stroke-linejoin="round" fill="none"/>
+  <path id="expMain" d="M 730 260 L 630 260 L 630 200 L 540 200" class="flow-exp" stroke-width="4" stroke-linejoin="round" fill="none" marker-end="url(#arrow-orange)" filter="url(#glowOrange)"/>
+  <text x="528" y="188" class="label-text" fill="#fb923c">Expiratory limb — breathing-out tube (CO₂)</text>
+
+  <!-- Germ filter, sitting on the expiratory line -->
+  <g transform="translate(630, 232)">
+    <rect x="-42" y="-14" width="84" height="28" rx="7" fill="#1e293b" stroke="#f97316" stroke-width="1.5"/>
+    <text x="0" y="4" font-size="10" font-weight="700" fill="#fdba74" text-anchor="middle">Germ filter</text>
+  </g>
+
+  <!-- PEEP valve, sitting on the expiratory line by the ventilator -->
+  <g transform="translate(588, 200)">
+    <rect x="-45" y="-17" width="90" height="34" rx="7" fill="#1e293b" stroke="#f97316" stroke-width="1.5"/>
+    <text x="0" y="-1" font-size="10.5" font-weight="700" fill="#fb923c" text-anchor="middle">PEEP Valve</text>
+    <text x="0" y="11" font-size="9" fill="#94a3b8" text-anchor="middle">&amp; Exhaust</text>
+  </g>
+
+  <!-- SENSOR FEEDBACK (purple) -->
+  <path id="signalPath" d="M 700 300 L 700 360 L 480 360 L 480 340" class="flow-signal" stroke-width="2.5" fill="none"/>
+  <text x="528" y="352" class="node-sub" fill="#c084fc">Flow, pressure &amp; FiO₂ sensor feedback</text>
+
+  <!-- Travelling glowing dots show the direction of movement -->
+  <g fill="#bae6fd" filter="url(#glowBlue)">
+    <circle r="4.5"><animateMotion dur="3s" repeatCount="indefinite"><mpath href="#inspMain" xlink:href="#inspMain"/></animateMotion></circle>
+    <circle r="4.5"><animateMotion dur="3s" begin="-1s" repeatCount="indefinite"><mpath href="#inspMain" xlink:href="#inspMain"/></animateMotion></circle>
+    <circle r="4.5"><animateMotion dur="3s" begin="-2s" repeatCount="indefinite"><mpath href="#inspMain" xlink:href="#inspMain"/></animateMotion></circle>
+    <circle r="3.5"><animateMotion dur="1.2s" repeatCount="indefinite"><mpath href="#inspDown" xlink:href="#inspDown"/></animateMotion></circle>
+  </g>
+  <g fill="#fed7aa" filter="url(#glowOrange)">
+    <circle r="4.5"><animateMotion dur="3.4s" repeatCount="indefinite"><mpath href="#expMain" xlink:href="#expMain"/></animateMotion></circle>
+    <circle r="4.5"><animateMotion dur="3.4s" begin="-1.7s" repeatCount="indefinite"><mpath href="#expMain" xlink:href="#expMain"/></animateMotion></circle>
+  </g>
+  <g fill="#e9d5ff" filter="url(#glowPurple)">
+    <circle r="3"><animateMotion dur="4s" repeatCount="indefinite"><mpath href="#signalPath" xlink:href="#signalPath"/></animateMotion></circle>
+    <circle r="3"><animateMotion dur="4s" begin="-2s" repeatCount="indefinite"><mpath href="#signalPath" xlink:href="#signalPath"/></animateMotion></circle>
+  </g>
+
+  <!-- Numbered step badges matching the cards below -->
+  <g class="badge"><circle cx="154" cy="116" r="11" fill="#38bdf8"/><text class="step-num" x="154" y="120">1</text></g>
+  <g class="badge" style="animation-delay:0.5s"><circle cx="304" cy="128" r="11" fill="#38bdf8"/><text class="step-num" x="304" y="132">2</text></g>
+  <g class="badge" style="animation-delay:1s"><circle cx="544" cy="106" r="11" fill="#38bdf8"/><text class="step-num" x="544" y="110">3</text></g>
+  <g class="badge" style="animation-delay:1.5s"><circle cx="494" cy="394" r="11" fill="#38bdf8"/><text class="step-num" x="494" y="398">4</text></g>
+  <g class="badge" style="animation-delay:2s"><circle cx="726" cy="214" r="11" fill="#38bdf8"/><text class="step-num" x="726" y="218">5</text></g>
+  <g class="badge" style="animation-delay:2.5s"><circle cx="588" cy="172" r="11" fill="#fb923c"/><text class="step-num" x="588" y="176">6</text></g>
+
+  <!-- 6. SIX STEPS IN PLAIN WORDS -->
+  <g transform="translate(40, 520)">
+    <rect x="0" y="0" width="146" height="110" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <circle cx="18" cy="22" r="10" fill="#38bdf8"/><text class="step-num" x="18" y="26">1</text>
+    <text class="card-title" x="34" y="26">Gas enters</text>
+    <text class="card-text" x="11" y="47">Air &amp; oxygen arrive</text>
+    <text class="card-text" x="11" y="63">under pressure.</text>
+    <text class="card-text" x="11" y="79">Regulators steady</text>
+    <text class="card-text" x="11" y="95">the flow.</text>
+
+    <rect x="155" y="0" width="146" height="110" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <circle cx="173" cy="22" r="10" fill="#38bdf8"/><text class="step-num" x="173" y="26">2</text>
+    <text class="card-title" x="189" y="26">Oxygen mixed</text>
+    <text class="card-text" x="166" y="47">Valves mix gases</text>
+    <text class="card-text" x="166" y="63">to set FiO₂, the</text>
+    <text class="card-text" x="166" y="79">oxygen % needed,</text>
+    <text class="card-text" x="166" y="95">21% up to 100%.</text>
+
+    <rect x="310" y="0" width="146" height="110" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <circle cx="328" cy="22" r="10" fill="#38bdf8"/><text class="step-num" x="328" y="26">3</text>
+    <text class="card-title" x="344" y="26">Breath controlled</text>
+    <text class="card-text" x="321" y="47">The computer sets</text>
+    <text class="card-text" x="321" y="63">breath size, flow</text>
+    <text class="card-text" x="321" y="79">&amp; pressure for</text>
+    <text class="card-text" x="321" y="95">every breath.</text>
+
+    <rect x="464" y="0" width="146" height="110" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <circle cx="482" cy="22" r="10" fill="#38bdf8"/><text class="step-num" x="482" y="26">4</text>
+    <text class="card-title" x="498" y="26">Warmed &amp; moist</text>
+    <text class="card-text" x="475" y="47">Gas is warmed to</text>
+    <text class="card-text" x="475" y="63">≈37°C and given</text>
+    <text class="card-text" x="475" y="79">moisture to guard</text>
+    <text class="card-text" x="475" y="95">the airway lining.</text>
+
+    <rect x="619" y="0" width="146" height="110" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <circle cx="637" cy="22" r="10" fill="#38bdf8"/><text class="step-num" x="637" y="26">5</text>
+    <text class="card-title" x="653" y="26">Lungs fill</text>
+    <text class="card-text" x="630" y="47">Gentle pressure</text>
+    <text class="card-text" x="630" y="63">fills tiny air</text>
+    <text class="card-text" x="630" y="79">sacs (alveoli) so</text>
+    <text class="card-text" x="630" y="95">O₂ enters blood.</text>
+
+    <rect x="774" y="0" width="146" height="110" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <circle cx="792" cy="22" r="10" fill="#fb923c"/><text class="step-num" x="792" y="26">6</text>
+    <text class="card-title" x="808" y="26">Used air leaves</text>
+    <text class="card-text" x="785" y="47">Lungs relax; air</text>
+    <text class="card-text" x="785" y="63">passes a germ</text>
+    <text class="card-text" x="785" y="79">filter. PEEP keeps</text>
+    <text class="card-text" x="785" y="95">sacs partly open.</text>
+  </g>
+
+  <text class="subtitle" x="500" y="668" text-anchor="middle">Simplified for learning — real ventilators vary by model and setting.</text>
+</svg>
