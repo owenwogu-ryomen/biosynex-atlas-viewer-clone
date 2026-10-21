@@ -1,4 +1,5 @@
 import ventilatorPoster from "../assets/mechanical-ventilator-illustration.jpg?url";
+import mriPoster from "../assets/mri-scanner-cutaway.jpg?url";
 
 // Add a new device by copying one object below. Paste a Spline/Sketchfab
 // iframe URL into `embedUrl`, or full embed HTML (iframe) into `embedHtml`.
@@ -14,8 +15,8 @@ export type Category = (typeof categories)[number];
 
 export const categoryInfo: Record<Category, { examples: string; purpose: string; risk: string }> = {
   "Diagnostic Imaging": {
-    examples: "MRI, CT, Diagnostic Ultrasound, Digital X-Ray",
-    purpose: "Non-invasive visualisation of anatomical structures and physiological processes.",
+    examples: "MRI, CT, PET, Diagnostic Ultrasound, Digital X-Ray",
+    purpose: "Creating pictures and measurements of internal structures and function without surgery, to help find, diagnose and monitor disease.",
     risk: "Medium to High",
   },
   "Life Support & Critical Care": {
@@ -64,38 +65,79 @@ export type Device = {
 export const devices: Device[] = [
   {
     slug: "mri-scanner",
-    name: "MRI Scanner",
+    name: "Magnetic Resonance Imaging (MRI) Scanner",
     category: "Diagnostic Imaging",
-    risk: "Medium to High — the magnet is very strong, so loose metal objects and some implants can be dangerous near it",
-    summary: "Uses a powerful magnet and radio waves to make detailed pictures of soft tissues — such as the brain, muscles, and organs — without X-ray radiation.",
-    embedUrl: "",
+    risk: "Moderate to High safety control — MRI uses no X-ray (ionising) radiation, but the magnet is always on and can pull ferromagnetic metal, disturb implants or pumps, cause RF heating, and make loud gradient noise. Careful screening is essential.",
+    summary: "A diagnostic imaging machine that uses a very strong magnet, radiofrequency (radio-wave) pulses, gradient coils, and a computer to create detailed 2D and 3D pictures of soft tissues, organs, joints, and blood vessels without X-ray (ionising) radiation.",
+    embedUrl: "https://sketchfab.com/models/308304dd1771433fb5f37fe9132bb1e7/embed?autostart=1&camera=0",
+    posterUrl: mriPoster,
+    posterCredit: "Cutaway illustration: 'Essential parts of a modern MRI machine' — Scientific Figure on ResearchGate (accessed 21 Oct 2026)",
+    posterCreditUrl: "https://www.researchgate.net/figure/Essential-parts-of-a-modern-MRI-machine-12_fig82_241802473",
+    posterFit: "contain",
+    modelCredit: "3D model: Magnetic resonance imaging (MRI) by SmartTek Solutions on Sketchfab",
+    modelCreditUrl: "https://sketchfab.com/3d-models/magnetic-resonance-imaging-mri-308304dd1771433fb5f37fe9132bb1e7",
     workingPrinciples: [
-      "A very strong magnet (called B0, usually 1.5 T or 3.0 T) lines up tiny hydrogen atoms in the body so they spin together. The speed of that spin is called the Larmor frequency.",
-      "A short radio-wave pulse, tuned to that exact spin speed, knocks the atoms sideways. This is called excitation.",
-      "As the atoms settle back, they give off faint radio signals. Different tissues settle at different speeds (called T1 and T2 times), and that difference creates the contrast in the picture.",
-      "Extra coils (gradient coils) change the magnetic field slightly along the X, Y, and Z directions, so the machine can pinpoint where each signal came from. A computer then builds the image using a maths method called the Fast Fourier Transform (FFT).",
+      "Alignment and precession in B0: The body contains abundant hydrogen nuclei (protons), mostly in water and fat. Each proton behaves like a tiny magnet. The powerful main field (B0, commonly 1.5 T or 3 T) makes a slight excess of protons line up with the field and wobble, or precess, at the Larmor frequency: f = (γ/2π)B0. At 3 T this is about 127.7 MHz.",
+      "Radiofrequency excitation: A transmit coil sends a short radiofrequency pulse (B1) tuned exactly to that Larmor frequency. Because the frequency matches, energy is absorbed efficiently and the combined magnetization is tipped by a controlled flip angle. Pulses tuned to the wrong frequency have little effect — this frequency matching is the 'resonance' in MRI.",
+      "Gradient spatial encoding: Three gradient coils (Gx, Gy and Gz) briefly make the magnetic field stronger or weaker in a controlled direction, so protons at different positions acquire different frequencies and phases. In a typical 2D sequence, one gradient helps select a slice, another gives a phase code, and another gives a frequency code during readout. This gives every location a mathematical 'address'.",
+      "Relaxation and echo capture: When the RF pulse stops, protons gradually return towards alignment (T1 recovery) while their sideways magnetization fades (T2 decay). Fat, water, muscle, cerebrospinal fluid and diseased tissue relax differently. The changing magnetization induces tiny electrical signals (free induction decay or echoes) in receive coils placed close to the body.",
+      "Digitization and image reconstruction: The pulse sequence is repeated with many gradient combinations. Low-noise amplifiers boost the faint signals, filters clean them, and analogue-to-digital converters store the samples in a data map called k-space. The reconstruction computer applies Fourier-transform maths (FFT) to convert those coded signals into slices or a 3D volume. Different pulse sequences emphasize anatomy, fluid, fat, blood flow, diffusion or function.",
     ],
     clinicalUses: [
-      "Scanning the brain and spinal cord",
-      "Checking muscles, bones, and joints",
-      "Examining the heart and the organs in the abdomen (belly)",
+      "Brain and spine: Evaluating brain and spinal tumours, aneurysms, stroke and bleeding, infection, developmental problems, multiple sclerosis and other demyelinating disease, spinal cord compression, and pinched or injured nerves.",
+      "Heart and body organs: Assessing heart chambers, valves, congenital heart disease, reduced blood flow and heart-muscle damage; examining liver and bile ducts, kidneys, spleen, pancreas and abdominal or pelvic masses; and staging or monitoring some cancers and inflammatory bowel disease.",
+      "Muscles, bones and joints: Investigating ligament, tendon, cartilage and muscle injuries; joint disorders; bone and soft-tissue tumours or infection; and spinal disc disease. MRI is especially valued where soft-tissue detail matters more than the cortical-bone detail shown well by CT.",
+      "Specialised examinations: Magnetic resonance angiography (MRA) for narrowed, blocked or weakened blood vessels; breast MRI in selected screening and diagnostic settings; prostate and pelvic imaging; functional MRI for brain activity studies; and diffusion, perfusion or spectroscopy techniques where available.",
     ],
     components: [
-      { name: "Main Superconducting Magnet", detail: "Coils of niobium-titanium wire kept extremely cold in liquid helium (about 4.2 K, roughly −269°C) so they carry electricity with no resistance and keep the magnetic field strong and steady." },
-      { name: "Gradient Coil Assembly", detail: "Three coils — for the X, Y, and Z directions — that pinpoint where each signal comes from: choosing the slice to image and encoding its position." },
-      { name: "RF Coils", detail: "Antennas placed close to the body. They send out the radio-wave pulses and listen for the faint signals (echoes) coming back." },
-      { name: "Cryogenic Cooling System", detail: "The cooling equipment — helium containers (dewars), cold-heads, and compressors — that keeps the magnet cold and prevents a sudden shutdown called a quench." },
-      { name: "Image Reconstruction Processor", detail: "The computer that turns the raw signal data (called k-space) into 2D and 3D pictures using FFT maths." },
+      { name: "Superconducting Main Magnet (B0)", detail: "Thousands of turns of niobium-titanium/copper wire carry current with virtually no resistance when kept near absolute zero, producing a strong and stable magnetic field. Most clinical scanners operate at 1.5 T or 3 T, while 7 T systems are specialised. For scale, 1 T equals 10,000 gauss; a 3 T scanner is roughly 60,000 times stronger than Earth's magnetic field. The complete magnet assembly can weigh several tonnes and is normally at field all the time." },
+      { name: "Cryogenic Cooling System & Cryostat", detail: "Liquid helium bathes the superconducting coils at about 4 K (about −269°C). A vacuum vessel, thermal shields, coldhead, compressor and chiller limit heat entry and helium boil-off. Modern systems minimise helium loss; a sudden loss of superconductivity is called a quench." },
+      { name: "Shim System", detail: "Passive ferromagnetic shims and active superconducting or resistive shim coils fine-tune the main field so it is as uniform (homogeneous) as possible over the imaging volume. Better uniformity means sharper images, more reliable fat suppression, and fewer distortions." },
+      { name: "Gradient Coils (Gx, Gy & Gz)", detail: "Three sets of powerful electromagnets inside the magnet produce controlled magnetic-field slopes along X, Y and Z. They switch in less than about a millisecond to encode position. Rapid switching makes the coils vibrate against the main field, causing MRI's familiar knocking and buzzing sounds." },
+      { name: "Gradient Amplifiers & Control Processor", detail: "Cabinet-sized amplifiers deliver precisely timed, high currents to the gradient coils. The sequence controller synchronises gradient waveforms with RF pulses and signal sampling, while monitoring limits for heating and peripheral nerve stimulation." },
+      { name: "RF Transmit System & Body Coil", detail: "An RF synthesizer/exciter creates a low-power signal at the Larmor frequency and a power amplifier strengthens it for the transmit (often built-in body) coil. Peak pulse power can reach many kilowatts, but pulses are brief; the system monitors specific absorption rate (SAR), a measure of RF energy deposited in tissue." },
+      { name: "Local & Phased-Array Receive Coils", detail: "Head, spine, knee, wrist, torso and other anatomy-specific coils contain arrays of small antenna elements placed close to the region being examined. Proximity increases signal-to-noise ratio, and combining several elements can also support faster parallel imaging." },
+      { name: "RF Receiver & Digitization Chain", detail: "Low-noise preamplifiers, often located at or near the receive coils, strengthen microvolt-level signals without adding much noise. Receiver electronics filter and demodulate the signal, then analogue-to-digital converters turn it into digital samples for k-space." },
+      { name: "Noise Suppression & Artifact Control", detail: "Filtering, receiver blanking, shielding, spike detection and correction software reduce electrical transients and unwanted interference that could appear as lines, ghosts or zipper artifacts in the image. Quality-control scans help detect problems early." },
+      { name: "Patient Table & Cradle", detail: "A non-magnetic, motorised table moves the patient smoothly into the bore and positions the body part at magnet isocenter with sub-millimetre to millimetre precision (model dependent). Some tabletops dock or detach for patient transfer, and positioning pads improve comfort and reduce movement." },
+      { name: "Laser Landmarking System", detail: "Low-power laser crosshairs project reference lines onto the patient or coil so the operator can align the anatomy of interest with scanner isocenter before the table moves into the magnet." },
+      { name: "Operator Console & Imaging Software", detail: "Workstations in the control room run scan protocols, display positioning images and reconstructed scans, and record patient and sequence information. The operator communicates with the patient through an intercom and observes them through the shielded window or camera system." },
+      { name: "Image Reconstruction Computer", detail: "High-performance processors (often including GPUs) turn raw k-space data into images using Fourier transforms and corrections for coil sensitivity, field imperfections and motion. Finished images are displayed, archived, and commonly sent to hospital PACS systems." },
+      { name: "Power Distribution & Equipment Cabinets", detail: "Electrical cabinets distribute regulated power to gradient amplifiers, RF amplifiers, computers, cooling equipment and controls. RF filters on cables entering the scan room prevent unwanted radio noise from being carried through the shield." },
+      { name: "RF Shielding (Faraday Cage)", detail: "Copper or other conductive shielding incorporated into the scan-room walls, door, floor, ceiling and window blocks outside radiofrequency interference and contains the scanner's RF pulses. It is separate from magnetic shielding used to limit the stray (fringe) magnetic field." },
+      { name: "Safety, Monitoring & Emergency Systems", detail: "Controlled-access zones, screening procedures, hearing protection, an emergency call bulb/button, intercom and patient observation reduce risk. Some suites add ferromagnetic-detection systems. A quench pipe safely vents helium gas outside; burst disks, relief valves, quench-protection circuits and an emergency magnet rundown are for trained personnel and genuine emergencies, not routine shutdown." },
     ],
     descriptions: [
       {
         heading: "Overview",
-        body: "MRI uses a strong magnet and radio waves to make clear pictures of soft tissue — parts of the body such as the brain, muscles, and organs. The patient lies inside the magnet while radio-wave pulses nudge the hydrogen atoms in their body, and the machine listens to the tiny signals those atoms send back.",
+        body: "Magnetic Resonance Imaging (MRI) is a non-invasive way to look inside the body. Instead of taking a shadow picture with X-rays, it listens to how hydrogen protons in water and fat respond inside a strong magnetic field after carefully timed radiofrequency pulses. A computer converts those responses into highly detailed cross-sectional pictures that can be viewed in any plane or assembled into 3D views.\n\nMRI is especially good at separating soft tissues — for example grey matter from white matter in the brain, cartilage from ligament in a joint, or a tumour from nearby normal tissue. It uses no ionising radiation. That does not make it risk-free, however: the powerful magnet remains on, so every patient, staff member, device and loose object must be screened before entering the magnet room (ACR Zone IV).",
       },
       {
-        heading: "Signal Path",
-        body: "The round tunnel (bore) holds the superconducting magnet coils. Inside it sits the gradient coil assembly, and closest to the patient are the RF coils that send and receive signals. The signals pass through quiet amplifiers (pre-amplifiers), are converted into digital form, and finally reach the computer that builds the images.",
+        heading: "How a Scan Is Made, Step by Step",
+        body: "1. Screening and positioning: Staff check for implants, devices and metal fragments, help the patient onto the table, fit the appropriate receive coil and hearing protection, and use laser crosshairs to place the area of interest at scanner isocenter — the point where the magnetic field and gradients are best controlled.\n2. Proton alignment: As the table moves into the bore, the main field B0 makes a slight excess of hydrogen protons align and precess at the Larmor frequency. This creates a small net magnetization along the field.\n3. RF excitation: The transmit coil sends a short B1 pulse at exactly that frequency, tipping the magnetization by a chosen flip angle and creating a measurable sideways component.\n4. Position coding: Gradient coils switch rapidly in X, Y and Z. They select the slice and give each location a unique frequency/phase code while the scanner records the returning signal.\n5. Relaxation and signal capture: After excitation, T1 recovery and T2 decay proceed at rates influenced by tissue composition and the local microscopic environment. Receive coils detect the small changing signals; their timing and strength create contrast between tissues.\n6. Reconstruction: Steps 3–5 repeat until enough coded samples fill k-space. The reconstruction computer applies a Fourier transform to place signal contributions into pixels (or voxels in 3D), corrects errors, and displays the finished images for the radiologist or other clinician to interpret.",
       },
+      {
+        heading: "Magnet Types & Scanner Designs",
+        body: "Superconducting electromagnets: The standard design for most 1.5 T and 3 T clinical scanners and stronger specialised systems. Liquid-helium cooling keeps the wire near 4 K so it carries a persistent current with virtually no electrical resistance. This gives a strong, stable and uniform field but requires cryogenics, shielding, a quench vent and careful siting.\nPermanent magnets: Made from permanently magnetised material, usually at lower field strength (often below 0.5 T). They need no cryogens and are commonly used in C-shaped open designs, but the assemblies can be very heavy and lower field can mean lower signal-to-noise ratio.\nResistive electromagnets: Conventional current-carrying coils that can be switched off. They generate substantial heat and consume power, provide lower field than most superconducting systems, and are now less common for whole-body clinical MRI.\nClosed-bore, open and upright designs: Conventional superconducting systems use a cylindrical bore and generally provide the strongest, most uniform field. Open scanners use separated magnet poles for easier access and less claustrophobia, commonly at lower field. Upright/positional systems can image a person sitting or standing where available.",
+      },
+      {
+        heading: "Patient Preparation & Safety",
+        body: "Before the scan: The MRI team asks about pacemakers and defibrillators, neurostimulators, cochlear implants, drug-infusion pumps, spinal cord stimulators, shunts, aneurysm clips or coils, stents and filters, surgical hardware, shrapnel or metal in the eye, and devices worn on the body such as continuous glucose monitors and insulin pumps. Jewellery, watches, hair accessories, removable dental work and other metal items are removed as instructed. Many modern implants are 'MR Conditional', meaning they may be scanned only under defined conditions — never assume a device is safe.\n\nDuring the scan: The patient lies on a padded table, often with a coil around the area being examined. Scans commonly take about 30–60 minutes, but timing varies. Gradient coils make loud knocking or buzzing, so earplugs or headphones are provided. The patient should lie as still as possible and can communicate through an intercom and emergency call button or squeeze bulb. Some examinations use an intravenous contrast agent when a clinician judges it appropriate.\n\nWhy screening matters: Ferromagnetic objects can be pulled violently toward the magnet (projectile effect). Magnetic fields and gradient/RF energy can move, heat, reset or interfere with some implants and external devices, and leads or loops on the skin can contribute to burns. These risks are controlled by trained staff, controlled-access zones, checklists and device-specific guidance.",
+      },
+      {
+        heading: "Modern Innovations",
+        body: "Quantitative MRI (qMRI): Instead of only producing pictures where brightness depends on scanner settings, qMRI aims to measure tissue properties such as T1, T2, fat fraction, stiffness or flow in repeatable units. NIST-supported MRI phantoms — test objects containing known materials — help sites calibrate scanners, compare results between hospitals and check whether a measured change is real.\nPortable low-field MRI: Smaller systems, particularly for bedside brain imaging, reduce siting demands and may improve access for critically ill patients or lower-resource settings. Lower field produces less signal, so sensitive coils, efficient sequences and computational or AI-based image enhancement are used to improve quality; they complement rather than replace conventional high-field scanners for many examinations.\nFaster and smarter imaging: Parallel imaging, compressed sensing, simultaneous multi-slice acquisition and AI reconstruction can shorten scans or reduce noise. Quieter gradient waveforms, wider/shorter bores and in-bore entertainment also improve comfort. These advances still depend on validation so image enhancement does not invent or hide clinically important detail.",
+      },
+      {
+        heading: "Category Profile",
+        body: "Main job: To create detailed 2D and 3D diagnostic pictures and, increasingly, quantitative measurements of internal organs, soft tissues, joints, blood vessels and function without surgery or ionising radiation.\nRisk level: Moderate to High safety control. The hazard is not X-ray exposure; it is the always-on static magnetic field, time-varying gradient fields, RF energy deposition, acoustic noise and interactions with metals or implanted/worn devices. Controlled access and screening are mandatory.\nRelated devices: Computed Tomography (CT), Positron Emission Tomography (PET), Diagnostic Ultrasound, Digital X-Ray and Magnetic Resonance Angiography (MRA) systems/sequences.",
+      },
+    ],
+    references: [
+      { title: "How Does an MRI Machine Work?", url: "https://www.nist.gov/how-do-you-measure-it/how-does-mri-machine-work", source: "National Institute of Standards and Technology (NIST)" },
+      { title: "MR Machine — FRCR Physics Notes", url: "https://www.radiologycafe.com/frcr-physics-notes/mr-imaging/mr-machine/", source: "Radiology Cafe" },
+      { title: "MRI Scanner Components: How MRI Machines Work & Key Parts", url: "https://www.medicalimagingsource.com/mri-scanner-components-explained", source: "Medical Imaging Source" },
+      { title: "Magnetic Resonance Imaging (MRI): Overview, Procedure & Results", url: "https://my.clevelandclinic.org/health/diagnostics/4876-magnetic-resonance-imaging-mri", source: "Cleveland Clinic" },
     ],
   },
   {
@@ -314,6 +356,43 @@ export const resources: Resource[] = [
     categories: ["Diagnostic Imaging", "Therapeutic & Surgical", "Patient Monitoring & Biosignals"],
     topics: "Imaging architectures, therapeutic devices, signal processing",
     note: "Review papers on modern medical technologies.",
+  },
+  // MRI Scanner references
+  {
+    title: "How Does an MRI Machine Work?",
+    type: "Article",
+    url: "https://www.nist.gov/how-do-you-measure-it/how-does-mri-machine-work",
+    source: "National Institute of Standards and Technology (NIST)",
+    categories: ["Diagnostic Imaging"],
+    topics: "MRI, proton precession, Larmor frequency, gradients, quantitative MRI, portable MRI",
+    note: "Plain-language explanation from the United States national metrology institute, including quantitative MRI and low-field innovation.",
+  },
+  {
+    title: "MR Machine — FRCR Physics Notes",
+    type: "Article",
+    url: "https://www.radiologycafe.com/frcr-physics-notes/mr-imaging/mr-machine/",
+    source: "Radiology Cafe",
+    categories: ["Diagnostic Imaging"],
+    topics: "MRI, superconducting magnet, helium cooling, shim coils, gradient coils, RF coils",
+    note: "Concise hardware notes for radiology physics, including magnet types and the origin of gradient noise.",
+  },
+  {
+    title: "MRI Scanner Components: How MRI Machines Work & Key Parts",
+    type: "Article",
+    url: "https://www.medicalimagingsource.com/mri-scanner-components-explained",
+    source: "Medical Imaging Source",
+    categories: ["Diagnostic Imaging"],
+    topics: "MRI components, cryostat, quench system, patient table, RF shielding, safety systems",
+    note: "Component-by-component guide to the magnet, cryogenic, RF, computing, shielding and emergency systems.",
+  },
+  {
+    title: "Magnetic Resonance Imaging (MRI): Overview, Procedure & Results",
+    type: "Article",
+    url: "https://my.clevelandclinic.org/health/diagnostics/4876-magnetic-resonance-imaging-mri",
+    source: "Cleveland Clinic",
+    categories: ["Diagnostic Imaging"],
+    topics: "MRI uses, patient preparation, implant screening, procedure, safety",
+    note: "Patient-friendly guide to why MRI is used, how to prepare, and why implants and metal objects must be disclosed.",
   },
   // Mechanical Ventilator references
   {

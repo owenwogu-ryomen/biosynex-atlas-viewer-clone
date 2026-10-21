@@ -1,0 +1,281 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1400 980" width="100%" height="auto" style="background-color:#0b0f19;font-family:system-ui,-apple-system,'Segoe UI',sans-serif" role="img" aria-labelledby="mriSvgTitle mriSvgDesc">
+  <title id="mriSvgTitle">Animated MRI scanner hardware and working-principle diagram</title>
+  <desc id="mriSvgDesc">A detailed educational schematic showing the superconducting magnet, liquid-helium cryostat, shim and gradient coils, radiofrequency coils, patient at the scanner isocenter, the five steps from proton alignment to Fourier image reconstruction, and simplified MRI physics equations. Animated lines show cryogenic circulation, radiofrequency excitation, gradient encoding, returning tissue signals, and data flow.</desc>
+  <defs>
+    <linearGradient id="mriBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/><stop offset="55%" stop-color="#0b0f19"/><stop offset="100%" stop-color="#050811"/>
+    </linearGradient>
+    <linearGradient id="mriMagnet" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e293b"/><stop offset="30%" stop-color="#334155"/><stop offset="50%" stop-color="#475569"/><stop offset="70%" stop-color="#334155"/><stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <radialGradient id="mriIsoGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.45"/><stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="mriGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="mriGlowCyan" x="-80%" y="-80%" width="260%" height="260%"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#38bdf8" flood-opacity="0.9"/></filter>
+    <filter id="mriGlowPink" x="-80%" y="-80%" width="260%" height="260%"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#ec4899" flood-opacity="0.9"/></filter>
+    <filter id="mriGlowGold" x="-80%" y="-80%" width="260%" height="260%"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#f59e0b" flood-opacity="0.9"/></filter>
+    <marker id="mriArrowCyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/></marker>
+    <marker id="mriArrowPink" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#ec4899"/></marker>
+    <marker id="mriArrowGold" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/></marker>
+  </defs>
+  <style>
+    .mri-title{font-size:24px;font-weight:800;fill:#f8fafc;letter-spacing:.4px}
+    .mri-subtitle{font-size:13px;font-weight:500;fill:#94a3b8}
+    .mri-head{font-size:15px;font-weight:700;fill:#38bdf8;letter-spacing:.4px}
+    .mri-label{font-size:13px;font-weight:700;fill:#e2e8f0}
+    .mri-sub{font-size:11px;fill:#a8b8cc}
+    .mri-eng{font-size:11px;font-family:ui-monospace,monospace;fill:#a7f3d0}
+    .mri-math{font-family:ui-monospace,'Courier New',monospace;font-weight:700;fill:#fbbf24}
+    @keyframes mriDash{from{stroke-dashoffset:44}to{stroke-dashoffset:0}}
+    .mri-cryo{stroke:#38bdf8;stroke-width:3;stroke-dasharray:9 7;animation:mriDash 1.4s linear infinite}
+    .mri-rftx{stroke:#ec4899;stroke-width:3;stroke-dasharray:10 6;animation:mriDash 1.1s linear infinite}
+    .mri-rfrx{stroke:#f59e0b;stroke-width:3;stroke-dasharray:6 4;animation:mriDash .8s linear infinite}
+    .mri-grad{stroke:#10b981;stroke-width:3;stroke-dasharray:12 7;animation:mriDash 1.8s linear infinite}
+    .mri-data{stroke:#c084fc;stroke-width:3;stroke-dasharray:6 6;animation:mriDash 1s linear infinite}
+    .mri-spin{transform-box:fill-box;transform-origin:center;animation:mriSpin 3s linear infinite}
+    @keyframes mriSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .mri-pulse{animation:mriPulse 2.4s ease-in-out infinite}
+    @keyframes mriPulse{0%,100%{opacity:.55}50%{opacity:1}}
+    .mri-hover{transition:all .25s ease}
+    .mri-hover:hover .mri-ring{stroke:#7dd3fc!important;filter:drop-shadow(0 0 8px #38bdf8)}
+    .mri-hover:hover .mri-card{fill:#243349!important;stroke:#38bdf8!important}
+    .mri-hover:hover .mri-label{fill:#fff!important}
+    @media (prefers-reduced-motion:reduce){.mri-cryo,.mri-rftx,.mri-rfrx,.mri-grad,.mri-data,.mri-spin,.mri-pulse{animation:none}}
+  </style>
+
+  <rect width="1400" height="980" fill="url(#mriBg)" rx="16"/>
+  <rect x="10" y="10" width="1380" height="960" fill="none" stroke="#1e293b" stroke-width="2" rx="12"/>
+
+  <g transform="translate(30,45)">
+    <text class="mri-title" x="0" y="0">MRI SCANNER: HARDWARE &amp; WORKING PRINCIPLES</text>
+    <text class="mri-subtitle" x="0" y="22">Plain-language journey with engineering detail — proton alignment, resonance, spatial encoding, relaxation, and reconstruction</text>
+    <g transform="translate(1050,-10)">
+      <rect x="0" y="0" width="270" height="36" rx="18" fill="#1e293b" stroke="#334155"/>
+      <circle cx="20" cy="18" r="6" fill="#10b981" filter="url(#mriGlow)"><animate attributeName="opacity" values="1;0.35;1" dur="2s" repeatCount="indefinite"/></circle>
+      <text x="34" y="22" font-size="11" fill="#e2e8f0" font-weight="600">Example B₀ field: 3.0 Tesla</text>
+    </g>
+  </g>
+
+  <!-- LEFT: HARDWARE CUTAWAY -->
+  <g transform="translate(30,95)">
+    <rect x="0" y="0" width="650" height="835" fill="#0f172a" fill-opacity="0.88" stroke="#1e293b" stroke-width="2" rx="12"/>
+    <text class="mri-head" x="20" y="30">1. SCANNER HARDWARE &amp; BORE CUTAWAY</text>
+    <text class="mri-sub" x="20" y="48">Layers around the patient and the magnet centre (isocenter)</text>
+
+    <g transform="translate(45,112)">
+      <rect x="0" y="0" width="560" height="420" rx="210" fill="url(#mriMagnet)" stroke="#475569" stroke-width="3"/>
+      <rect x="25" y="25" width="510" height="370" rx="185" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+
+      <g class="mri-hover">
+        <rect x="40" y="40" width="480" height="340" rx="170" fill="none" stroke="#0284c7" stroke-width="18" opacity="0.85" class="mri-ring"/>
+        <path id="mriCryoLoop" d="M 50 210 a 230 160 0 1 1 460 0 a 230 160 0 1 1 -460 0" fill="none" class="mri-cryo"/>
+      </g>
+
+      <g class="mri-hover">
+        <rect x="65" y="65" width="430" height="290" rx="145" fill="none" stroke="#3b82f6" stroke-width="14" class="mri-ring"/>
+        <path d="M 170 -18 L 390 -18" stroke="#93c5fd" stroke-width="2.5" marker-end="url(#mriArrowCyan)"/>
+        <text x="280" y="-27" text-anchor="middle" font-size="12" font-weight="700" fill="#bfdbfe">B₀ main field direction</text>
+      </g>
+
+      <rect x="82" y="82" width="396" height="256" rx="128" fill="none" stroke="#f59e0b" stroke-width="5" stroke-dasharray="10 6" opacity="0.9"/>
+
+      <g class="mri-hover">
+        <rect x="94" y="94" width="372" height="232" rx="116" fill="none" stroke="#10b981" stroke-width="16" opacity="0.92" class="mri-ring"/>
+        <path id="mriGradX" d="M 112 210 L 448 210" class="mri-grad" fill="none"/>
+        <path id="mriGradY" d="M 280 112 L 280 308" class="mri-grad" fill="none"/>
+      </g>
+
+      <g class="mri-hover">
+        <rect x="118" y="118" width="324" height="184" rx="92" fill="none" stroke="#ec4899" stroke-width="10" class="mri-ring"/>
+      </g>
+
+      <rect x="135" y="135" width="290" height="150" rx="75" fill="#020617" stroke="#334155" stroke-width="2"/>
+      <circle cx="280" cy="210" r="72" fill="url(#mriIsoGlow)"/>
+
+      <!-- RF energy travelling inward -->
+      <path id="mriRfInL" d="M 150 210 C 185 178, 220 182, 250 198" fill="none" class="mri-rftx" marker-end="url(#mriArrowPink)"/>
+      <path id="mriRfInR" d="M 410 210 C 375 178, 340 182, 310 198" fill="none" class="mri-rftx" marker-end="url(#mriArrowPink)"/>
+
+      <g transform="translate(160,190)">
+        <rect x="0" y="30" width="240" height="12" rx="4" fill="#64748b" stroke="#94a3b8"/>
+        <rect x="20" y="42" width="200" height="8" fill="#334155"/>
+        <path d="M 30 26 Q 50 15 80 18 Q 120 22 160 20 Q 200 18 220 28 L 220 30 L 30 30 Z" fill="#38bdf8" fill-opacity="0.6" stroke="#0284c7"/>
+        <circle cx="42" cy="18" r="10" fill="#38bdf8" fill-opacity="0.85"/>
+        <path d="M 30 6 C 45 -5 60 -5 75 6" fill="none" stroke="#f59e0b" stroke-width="4" filter="url(#mriGlow)"/>
+        <text x="2" y="-10" font-size="10" font-weight="700" fill="#fbbf24">Receive coil</text>
+      </g>
+
+      <!-- Tissue signal travelling outward and downward -->
+      <path id="mriSignalOut" d="M 238 230 C 205 255, 190 285, 205 325 C 218 360, 260 380, 320 392" fill="none" class="mri-rfrx" marker-end="url(#mriArrowGold)"/>
+
+      <g transform="translate(280,175)">
+        <circle cx="0" cy="0" r="29" fill="#0f172a" stroke="#38bdf8" stroke-width="2" filter="url(#mriGlow)"/>
+        <g class="mri-spin">
+          <ellipse cx="0" cy="0" rx="21" ry="7" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3 2"/>
+          <circle cx="21" cy="0" r="3" fill="#fbbf24"/>
+        </g>
+        <circle cx="0" cy="0" r="10" fill="#ef4444"/>
+        <text x="-4" y="4" font-size="11" font-weight="bold" fill="#fff">+</text>
+        <path d="M 0 0 L 0 -20" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#mriArrowGold)"/>
+        <text x="35" y="-12" font-size="10" font-weight="700" fill="#7dd3fc">¹H proton</text>
+        <text x="35" y="1" font-size="9" fill="#94a3b8">precessing spin</text>
+      </g>
+
+      <g fill="#bae6fd" filter="url(#mriGlowCyan)">
+        <circle cx="50" cy="210" r="4"><animateMotion dur="9s" repeatCount="indefinite"><mpath href="#mriCryoLoop" xlink:href="#mriCryoLoop"/></animateMotion></circle>
+        <circle cx="510" cy="210" r="4"><animateMotion dur="9s" begin="-4.5s" repeatCount="indefinite"><mpath href="#mriCryoLoop" xlink:href="#mriCryoLoop"/></animateMotion></circle>
+      </g>
+      <g fill="#fbcfe8" filter="url(#mriGlowPink)">
+        <circle cx="150" cy="210" r="3.5"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#mriRfInL" xlink:href="#mriRfInL"/></animateMotion></circle>
+        <circle cx="410" cy="210" r="3.5"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#mriRfInR" xlink:href="#mriRfInR"/></animateMotion></circle>
+      </g>
+      <g fill="#fde68a" filter="url(#mriGlowGold)">
+        <circle cx="238" cy="230" r="3.5"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#mriSignalOut" xlink:href="#mriSignalOut"/></animateMotion></circle>
+      </g>
+      <text x="280" y="438" text-anchor="middle" class="mri-sub">Outer → inner: cryostat • superconducting magnet • shims • gradients • RF body coil • bore</text>
+    </g>
+
+    <g transform="translate(20,558)">
+      <g class="mri-hover">
+        <rect x="0" y="0" width="290" height="92" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
+        <rect x="10" y="12" width="6" height="68" rx="3" fill="#0284c7"/>
+        <text class="mri-label" x="24" y="28">1. Superconducting Magnet (B₀)</text>
+        <text class="mri-sub" x="24" y="46">• NbTi coils in liquid helium (4 K)</text>
+        <text class="mri-sub" x="24" y="62">• Common fields: 1.5 T or 3 T; always on</text>
+        <text class="mri-eng" x="24" y="79">Role: aligns spins; sets f₀</text>
+      </g>
+      <g transform="translate(310,0)" class="mri-hover">
+        <rect x="0" y="0" width="290" height="92" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
+        <rect x="10" y="12" width="6" height="68" rx="3" fill="#10b981"/>
+        <text class="mri-label" x="24" y="28">2. Gradient Coils (Gx, Gy, Gz)</text>
+        <text class="mri-sub" x="24" y="46">• Three rapidly switched electromagnet sets</text>
+        <text class="mri-sub" x="24" y="62">• Fast switching causes knocking sounds</text>
+        <text class="mri-eng" x="24" y="79">Role: codes X/Y/Z position</text>
+      </g>
+      <g transform="translate(0,102)" class="mri-hover">
+        <rect x="0" y="0" width="290" height="92" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
+        <rect x="10" y="12" width="6" height="68" rx="3" fill="#ec4899"/>
+        <text class="mri-label" x="24" y="28">3. RF Transmit &amp; Receive Coils</text>
+        <text class="mri-sub" x="24" y="46">• Transmit coil sends B₁ radio pulses</text>
+        <text class="mri-sub" x="24" y="62">• Close receive coils capture faint echoes</text>
+        <text class="mri-eng" x="24" y="79">Role: pulse in; echo out</text>
+      </g>
+      <g transform="translate(310,102)" class="mri-hover">
+        <rect x="0" y="0" width="290" height="92" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
+        <rect x="10" y="12" width="6" height="68" rx="3" fill="#f59e0b"/>
+        <text class="mri-label" x="24" y="28">4. Cryogenics, Shims &amp; Shielding</text>
+        <text class="mri-sub" x="24" y="46">• Coldhead/compressor limits helium loss</text>
+        <text class="mri-sub" x="24" y="62">• Shims + room shield cut radio noise</text>
+        <text class="mri-eng" x="24" y="79">Role: stable, smooth field</text>
+      </g>
+      <g transform="translate(0,204)">
+        <rect x="0" y="0" width="600" height="34" rx="7" fill="#020617" stroke="#1e293b"/>
+        <text x="14" y="21" font-size="10" font-weight="700" fill="#64748b">SIGNAL PATH:</text>
+        <text x="105" y="21" font-size="10" fill="#38bdf8">helium cooling</text>
+        <text x="205" y="21" font-size="10" fill="#10b981">gradient drive</text>
+        <text x="310" y="21" font-size="10" fill="#f472b6">RF pulse in</text>
+        <text x="405" y="21" font-size="10" fill="#fbbf24">tissue echo out</text>
+        <text x="515" y="21" font-size="10" fill="#c084fc">k-space data</text>
+      </g>
+      <text x="10" y="268" font-size="11" fill="#fca5a5" font-weight="700">Safety: magnet stays ON — screening is essential.</text>
+    </g>
+  </g>
+
+  <!-- RIGHT TOP: FIVE PHYSICS STEPS -->
+  <g transform="translate(700,95)">
+    <rect x="0" y="0" width="670" height="520" fill="#0f172a" fill-opacity="0.88" stroke="#1e293b" stroke-width="2" rx="12"/>
+    <text class="mri-head" x="20" y="30">2. WORKING PRINCIPLE: FIVE PHYSICS STEPS</text>
+    <text class="mri-sub" x="20" y="48">Repeated many times with different gradient settings to build each slice or 3D volume</text>
+    <path id="mriSequence" d="M 50 105 L 50 465" class="mri-data" fill="none"/>
+    <circle cx="50" cy="105" r="4" fill="#e9d5ff"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#mriSequence" xlink:href="#mriSequence"/></animateMotion></circle>
+
+    <g transform="translate(20,65)" class="mri-hover">
+      <rect x="0" y="0" width="630" height="80" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
+      <circle cx="30" cy="40" r="16" fill="#0284c7"/><text x="30" y="45" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">1</text>
+      <text class="mri-label" x="60" y="26">Alignment &amp; Precession in B₀</text>
+      <text class="mri-sub" x="60" y="43">In plain words: hydrogen protons behave like tiny magnets and line up with the strong field.</text>
+      <text class="mri-eng" x="60" y="62">Engineering: a slight spin excess creates net magnetization M₀; spins precess at f₀.</text>
+    </g>
+    <g transform="translate(20,155)" class="mri-hover">
+      <rect x="0" y="0" width="630" height="80" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
+      <circle cx="30" cy="40" r="16" fill="#db2777"/><text x="30" y="45" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">2</text>
+      <text class="mri-label" x="60" y="26">RF Excitation at Resonance</text>
+      <text class="mri-sub" x="60" y="43">In plain words: a radio pulse at exactly the right pitch tips the tiny magnets sideways.</text>
+      <text class="mri-eng" x="60" y="62">Engineering: B₁ at f₀ = (γ/2π)B₀ rotates M by the selected flip angle.</text>
+    </g>
+    <g transform="translate(20,245)" class="mri-hover">
+      <rect x="0" y="0" width="630" height="80" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
+      <circle cx="30" cy="40" r="16" fill="#059669"/><text x="30" y="45" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">3</text>
+      <text class="mri-label" x="60" y="26">Spatial Encoding with Gradients</text>
+      <text class="mri-sub" x="60" y="43">In plain words: small magnetic slopes give each location a signal pitch and timing code.</text>
+      <text class="mri-eng" x="60" y="62">Engineering: Gz selects a slice; Gy phase-encodes; Gx frequency-encodes.</text>
+    </g>
+    <g transform="translate(20,335)" class="mri-hover">
+      <rect x="0" y="0" width="630" height="80" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
+      <circle cx="30" cy="40" r="16" fill="#d97706"/><text x="30" y="45" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">4</text>
+      <text class="mri-label" x="60" y="26">Relaxation &amp; Echo Capture</text>
+      <text class="mri-sub" x="60" y="43">In plain words: protons settle back at tissue-dependent speeds and broadcast faint radio echoes.</text>
+      <text class="mri-eng" x="60" y="62">Engineering: T1 recovery and T2 decay shape the FID/echo induced in receive coils.</text>
+    </g>
+    <g transform="translate(20,425)" class="mri-hover">
+      <rect x="0" y="0" width="630" height="80" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
+      <circle cx="30" cy="40" r="16" fill="#9333ea"/><text x="30" y="45" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">5</text>
+      <text class="mri-label" x="60" y="26">K-Space &amp; Fourier Reconstruction</text>
+      <text class="mri-sub" x="60" y="43">In plain words: the computer decodes all the coded echoes and turns them into detailed pictures.</text>
+      <text class="mri-eng" x="60" y="62">Engineering: samples fill k-space; inverse FFT converts spatial frequencies to pixels.</text>
+    </g>
+  </g>
+
+  <path d="M 1035 615 L 1035 630" class="mri-data" fill="none"/>
+
+  <!-- RIGHT BOTTOM: PHYSICS -->
+  <g transform="translate(700,630)">
+    <rect x="0" y="0" width="670" height="300" fill="#0f172a" fill-opacity="0.88" stroke="#1e293b" stroke-width="2" rx="12"/>
+    <text class="mri-head" x="20" y="28">3. KEY PHYSICS IN FOUR FORMULAS</text>
+
+    <g transform="translate(20,45)" class="mri-hover">
+      <rect x="0" y="0" width="305" height="110" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
+      <text class="mri-label" x="15" y="22">Larmor Frequency</text>
+      <text class="mri-math" x="15" y="48" font-size="16">f₀ = (γ/2π) · B₀</text>
+      <text class="mri-sub" x="15" y="68">For hydrogen, γ/2π = 42.58 MHz/T</text>
+      <text class="mri-eng" x="15" y="86">At 3.0 T: f₀ ≈ 127.7 MHz</text>
+      <text class="mri-sub" x="15" y="101">Stronger field → faster precession</text>
+    </g>
+
+    <g transform="translate(345,45)" class="mri-hover">
+      <rect x="0" y="0" width="305" height="110" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
+      <text class="mri-label" x="15" y="22">T1 / T2 Relaxation</text>
+      <text class="mri-math" x="15" y="44" font-size="12">Mz(t) = M₀(1 − e^(−t/T1))</text>
+      <text class="mri-math" x="15" y="62" font-size="12">Mxy(t) = Mxy(0)e^(−t/T2)</text>
+      <text class="mri-sub" x="15" y="81">T1: recovery along B₀</text>
+      <text class="mri-eng" x="15" y="97">T2: transverse signal fading</text>
+    </g>
+
+    <g transform="translate(20,168)" class="mri-hover">
+      <rect x="0" y="0" width="305" height="115" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
+      <text class="mri-label" x="15" y="22">Gradient Spatial Encoding</text>
+      <text class="mri-math" x="15" y="46" font-size="14">B(r) = B₀ + G·r</text>
+      <text class="mri-math" x="15" y="66" font-size="12">Δz = Δf / [(γ/2π)Gz]</text>
+      <text class="mri-sub" x="15" y="86">Position changes local field and frequency</text>
+      <text class="mri-eng" x="15" y="102">Bandwidth + Gz set slice thickness Δz</text>
+    </g>
+
+    <g transform="translate(345,168)" class="mri-hover">
+      <rect x="0" y="0" width="305" height="115" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
+      <text class="mri-label" x="15" y="22">K-Space to Image</text>
+      <text class="mri-math" x="15" y="46" font-size="13">Image = 2D IFFT { S(kx, ky) }</text>
+      <text class="mri-sub" x="15" y="68">kx grows while Gx is on; ky steps with Gy</text>
+      <text class="mri-sub" x="15" y="84">Centre of k-space: contrast; edges: detail</text>
+      <text class="mri-eng" x="15" y="101">Output: 2D slices or a 3D volume</text>
+    </g>
+  </g>
+
+  <g transform="translate(30,962)">
+    <text x="0" y="0" font-size="11" fill="#64748b">Biosynex Atlas educational diagram — simplified; real MRI systems and pulse sequences vary.</text>
+    <text x="1010" y="0" font-size="11" fill="#64748b">Self-hosted animated SVG</text>
+  </g>
+</svg>

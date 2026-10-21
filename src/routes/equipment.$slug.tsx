@@ -3,6 +3,8 @@ import { SiteShell } from "@/components/SiteShell";
 import { ViewerFrame } from "@/components/ViewerFrame";
 import { categories, categoryInfo, devices, getDevice, resources } from "@/data/equipment";
 import ventilatorDiagramUrl from "@/assets/ventilator-working-principle.svg?url";
+import mriDiagramSvg from "@/assets/mri-working-principle.svg?raw";
+import mriAnimationUrl from "@/assets/mri-machines-animation.gif?url";
 
 export const Route = createFileRoute("/equipment/$slug")({
   loader: ({ params }) => {
@@ -66,6 +68,23 @@ function DevicePage() {
           <p className="font-mono text-xs text-primary uppercase tracking-widest">{device.category}</p>
           <h1 className="font-display text-4xl mt-2">{device.name}</h1>
           <p className="mt-2 text-muted-foreground">{device.summary}</p>
+          {device.slug === "mri-scanner" && (
+            <figure className="mx-auto mt-6 w-full max-w-2xl rounded-xl border border-border bg-card p-3">
+              <img
+                src={mriAnimationUrl}
+                alt="Animated NIST illustration of a patient on an MRI table sliding into the scanner while proton symbols move around the machine"
+                className="h-auto w-full rounded-lg"
+                loading="eager"
+              />
+              <figcaption className="mt-2 text-center text-xs text-muted-foreground">
+                MRI machines animation. Credit: {" "}
+                <a href="https://www.nist.gov/image/hdymi-mri-animation" target="_blank" rel="noreferrer" className="underline hover:text-primary">
+                  N. Hanacek / NIST
+                </a>
+                .
+              </figcaption>
+            </figure>
+          )}
           <ViewerFrame
             key={device.slug}
             title={device.name}
@@ -84,6 +103,24 @@ function DevicePage() {
             <figure className="mt-6 rounded-xl border border-border bg-card p-4">
               <img src={ventilatorDiagramUrl} alt="Animated diagram showing how air travels through a medical ventilator, step by step" className="w-full rounded-lg" />
               <figcaption className="mt-3 text-sm text-muted-foreground">How air travels through the ventilator, step by step. Blue = fresh air in, orange = used air out, purple = sensor messages back to the computer.</figcaption>
+            </figure>
+          )}
+          {device.slug === "mri-scanner" && (
+            <figure className="mt-6 rounded-xl border border-border bg-card p-4">
+              <div className="overflow-x-auto rounded-lg">
+                <div
+                  role="img"
+                  aria-label="Animated diagram showing MRI scanner layers, proton alignment, radiofrequency excitation, gradient encoding, relaxation and Fourier reconstruction"
+                  className="min-w-[820px] lg:min-w-0 [&_svg]:block [&_svg]:h-auto [&_svg]:w-full"
+                  dangerouslySetInnerHTML={{ __html: mriDiagramSvg }}
+                />
+              </div>
+              <figcaption className="mt-3 text-sm text-muted-foreground">
+                Animated MRI working-principle diagram. Blue shows liquid-helium cooling, pink shows the radiofrequency
+                pulse travelling in, green shows gradient position coding, gold shows the returning tissue signal, and
+                purple shows data moving towards reconstruction. On small screens, scroll sideways to read the labels.
+                Biosynex Atlas self-hosted educational SVG, redrawn from the supplied schematic and the cited references.
+              </figcaption>
             </figure>
           )}
           <div className="mt-8 space-y-6">
