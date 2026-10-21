@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GlossaryRouteImport } from './routes/glossary'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as EquipmentIndexRouteImport } from './routes/equipment.index'
 import { Route as EquipmentSlugRouteImport } from './routes/equipment.$slug'
@@ -17,6 +18,11 @@ import { Route as EquipmentSlugRouteImport } from './routes/equipment.$slug'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GlossaryRoute = GlossaryRouteImport.update({
+  id: '/glossary',
+  path: '/glossary',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResourcesRoute = ResourcesRouteImport.update({
@@ -37,12 +43,14 @@ const EquipmentSlugRoute = EquipmentSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/glossary': typeof GlossaryRoute
   '/resources': typeof ResourcesRoute
   '/equipment/$slug': typeof EquipmentSlugRoute
   '/equipment/': typeof EquipmentIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/glossary': typeof GlossaryRoute
   '/resources': typeof ResourcesRoute
   '/equipment/$slug': typeof EquipmentSlugRoute
   '/equipment': typeof EquipmentIndexRoute
@@ -50,20 +58,29 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/glossary': typeof GlossaryRoute
   '/resources': typeof ResourcesRoute
   '/equipment/$slug': typeof EquipmentSlugRoute
   '/equipment/': typeof EquipmentIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/resources' | '/equipment/$slug' | '/equipment/'
+  fullPaths:
+    '/' | '/glossary' | '/resources' | '/equipment/$slug' | '/equipment/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/resources' | '/equipment/$slug' | '/equipment'
-  id: '__root__' | '/' | '/resources' | '/equipment/$slug' | '/equipment/'
+  to: '/' | '/glossary' | '/resources' | '/equipment/$slug' | '/equipment'
+  id:
+    | '__root__'
+    | '/'
+    | '/glossary'
+    | '/resources'
+    | '/equipment/$slug'
+    | '/equipment/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GlossaryRoute: typeof GlossaryRoute
   ResourcesRoute: typeof ResourcesRoute
   EquipmentSlugRoute: typeof EquipmentSlugRoute
   EquipmentIndexRoute: typeof EquipmentIndexRoute
@@ -76,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/glossary': {
+      id: '/glossary'
+      path: '/glossary'
+      fullPath: '/glossary'
+      preLoaderRoute: typeof GlossaryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/resources': {
@@ -104,6 +128,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GlossaryRoute: GlossaryRoute,
   ResourcesRoute: ResourcesRoute,
   EquipmentSlugRoute: EquipmentSlugRoute,
   EquipmentIndexRoute: EquipmentIndexRoute,

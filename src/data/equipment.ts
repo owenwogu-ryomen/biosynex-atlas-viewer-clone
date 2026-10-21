@@ -41,6 +41,12 @@ export const categoryInfo: Record<Category, { examples: string; purpose: string;
   },
 };
 
+export type GlossaryTerm = {
+  term: string;
+  definition: string;
+  aliases?: string;
+};
+
 export type Device = {
   slug: string;
   name: string;
@@ -59,6 +65,7 @@ export type Device = {
   clinicalUses: string[];
   components?: { name: string; detail: string }[];
   descriptions: { heading: string; body: string }[];
+  glossary?: GlossaryTerm[];
   references?: { title: string; url: string; source?: string }[];
 };
 
@@ -133,6 +140,33 @@ export const devices: Device[] = [
         body: "Main job: To create detailed 2D and 3D diagnostic pictures and, increasingly, quantitative measurements of internal organs, soft tissues, joints, blood vessels and function without surgery or ionising radiation.\nRisk level: Moderate to High safety control. The hazard is not X-ray exposure; it is the always-on static magnetic field, time-varying gradient fields, RF energy deposition, acoustic noise and interactions with metals or implanted/worn devices. Controlled access and screening are mandatory.\nRelated devices: Computed Tomography (CT), Positron Emission Tomography (PET), Diagnostic Ultrasound, Digital X-Ray and Magnetic Resonance Angiography (MRA) systems/sequences.",
       },
     ],
+    glossary: [
+      { term: "Artifact", definition: "A false streak, shadow, distortion or repeated pattern in an image that does not represent real anatomy.", aliases: "image artefact" },
+      { term: "B0", definition: "The scanner's strong, steady main magnetic field. It aligns a small excess of hydrogen protons and determines their precession frequency.", aliases: "main magnetic field" },
+      { term: "B1", definition: "The brief radiofrequency magnetic field sent into the body to tip proton magnetization and start an MRI signal.", aliases: "RF excitation field" },
+      { term: "Bore", definition: "The tunnel through the centre of the magnet into which the patient table moves." },
+      { term: "Cryostat", definition: "The heavily insulated vessel that holds liquid helium and keeps the superconducting magnet coils near absolute zero." },
+      { term: "Ferromagnetic", definition: "Strongly attracted to a magnet. Ferromagnetic objects are especially hazardous near an MRI scanner because they can be pulled forcefully toward it." },
+      { term: "FID and echo", definition: "Signals produced after RF excitation. A free induction decay (FID) fades quickly; an echo is a refocused signal measured at a planned time.", aliases: "free induction decay" },
+      { term: "Flip angle", definition: "How far an RF pulse tips the proton magnetization away from the main magnetic field, often described in degrees." },
+      { term: "Fourier transform (FFT)", definition: "Maths that separates a coded signal into frequency parts. MRI uses the Fast Fourier Transform to turn k-space data into an image.", aliases: "Fast Fourier Transform" },
+      { term: "Gradient coil", definition: "An electromagnet that briefly makes the magnetic field change across space, allowing the scanner to encode where each signal came from." },
+      { term: "Isocenter", definition: "The central point of the scanner where the main field and gradients are best controlled; the body part being imaged is positioned there.", aliases: "magnet isocentre" },
+      { term: "K-space", definition: "The organised data map where coded MRI signals are stored before reconstruction. Its centre mainly controls image contrast and its edges contribute fine detail." },
+      { term: "Larmor frequency", definition: "The frequency at which protons precess in a magnetic field. For hydrogen it is about 42.58 MHz per Tesla, so it is about 127.7 MHz at 3 T." },
+      { term: "MR Conditional", definition: "A device or implant that may enter the MRI environment only under specified conditions. It must never be assumed safe without checking those conditions." },
+      { term: "Precession", definition: "The wobbling motion of a proton's tiny magnetic axis around the direction of the main magnetic field, similar to a spinning top wobbling around gravity." },
+      { term: "Pulse sequence", definition: "The timed pattern of RF pulses, gradients and signal measurements used to make a particular kind of MRI image." },
+      { term: "Quench", definition: "A sudden loss of superconductivity in the magnet, causing its stored energy to turn to heat and liquid helium to boil off rapidly. The gas is vented through a quench pipe." },
+      { term: "RF shielding", definition: "Conductive room shielding, often called a Faraday cage, that blocks outside radiofrequency noise from interfering with faint MRI signals.", aliases: "Faraday cage" },
+      { term: "SAR", definition: "Specific absorption rate: a measure of radiofrequency energy absorbed by body tissue during MRI. Scanner software monitors it to limit heating.", aliases: "specific absorption rate" },
+      { term: "Shim", definition: "A metal piece or coil used to make the main magnetic field more uniform across the imaging area." },
+      { term: "Superconducting", definition: "Able to carry electric current with virtually no resistance when cooled to an extremely low temperature." },
+      { term: "T1 relaxation", definition: "The recovery of proton magnetization back along the main magnetic field after an RF pulse. Different tissues recover at different T1 rates." },
+      { term: "T2 relaxation", definition: "The fading of sideways proton magnetization as neighbouring protons lose phase coherence. Different tissues fade at different T2 rates." },
+      { term: "Tesla (T)", definition: "The unit used for strong magnetic fields. One Tesla equals 10,000 gauss; many clinical MRI scanners operate at 1.5 T or 3 T." },
+      { term: "Voxel", definition: "A small 3D box of tissue represented by one value in a 3D image, similar to a pixel in a 2D image." },
+    ],
     references: [
       { title: "How Does an MRI Machine Work?", url: "https://www.nist.gov/how-do-you-measure-it/how-does-mri-machine-work", source: "National Institute of Standards and Technology (NIST)" },
       { title: "MR Machine — FRCR Physics Notes", url: "https://www.radiologycafe.com/frcr-physics-notes/mr-imaging/mr-machine/", source: "Radiology Cafe" },
@@ -188,6 +222,30 @@ export const devices: Device[] = [
         body: "Main job: To keep a patient breathing — taking in oxygen and removing carbon dioxide — when their lungs or breathing muscles cannot do it alone, during organ failure or surgery.\nRisk level: High / life-critical. Possible complications include lung infection linked to the breathing tube (ventilator-associated pneumonia), lung injury from pressure (barotrauma), air leaking around the lung (pneumothorax), partly collapsed lung areas (atelectasis), and vocal cord injury.\nRelated devices: Anaesthesia machines, CPAP/BiPAP mask respirators, high-frequency jet ventilators, and ECMO circuits (machines that add oxygen to the blood outside the body).",
       },
     ],
+    glossary: [
+      { term: "Alveoli", definition: "Tiny air sacs in the lungs where oxygen passes into the blood and carbon dioxide passes out." },
+      { term: "ARDS", definition: "Acute respiratory distress syndrome: severe lung inflammation and fluid build-up that can make oxygen transfer dangerously poor.", aliases: "acute respiratory distress syndrome" },
+      { term: "Atelectasis", definition: "Partial or complete collapse of a lung or part of a lung, reducing the area available for gas exchange." },
+      { term: "Barotrauma", definition: "Tissue injury caused by pressure, including lung injury that can occur if airway pressure becomes excessive." },
+      { term: "CPAP and BiPAP", definition: "Mask-based breathing support. CPAP provides one continuous pressure; BiPAP provides different pressures for breathing in and out.", aliases: "continuous positive airway pressure, bilevel positive airway pressure" },
+      { term: "Endotracheal tube", definition: "A breathing tube passed through the mouth or nose into the windpipe (trachea) to connect a patient to a ventilator.", aliases: "ET tube" },
+      { term: "Expiratory limb", definition: "The part of the breathing circuit that carries used, carbon-dioxide-rich gas away from the patient." },
+      { term: "FiO2", definition: "Fraction of inspired oxygen: the percentage of oxygen in the gas delivered to the patient, from 21% in normal air up to 100%.", aliases: "fraction of inspired oxygen" },
+      { term: "Humidifier", definition: "A device that warms and moistens ventilator gas so dry gas does not damage the airway lining or thicken mucus." },
+      { term: "Inspiratory limb", definition: "The part of the breathing circuit that carries fresh, oxygen-rich gas from the ventilator toward the patient." },
+      { term: "Microprocessor", definition: "The small computer inside the ventilator that uses settings and sensor feedback to control valves, breath timing, flow and alarms." },
+      { term: "Non-invasive ventilation", definition: "Breathing support delivered through a tight-fitting mask rather than a tube inserted into the windpipe.", aliases: "NIV" },
+      { term: "PEEP", definition: "Positive end-expiratory pressure: a small pressure intentionally left in the lungs at the end of breathing out to help keep alveoli from fully collapsing.", aliases: "positive end-expiratory pressure" },
+      { term: "Pneumothorax", definition: "Air in the space around a lung, which can cause the lung to collapse." },
+      { term: "Positive-pressure ventilation", definition: "A method in which the ventilator pushes gas into the lungs at pressure above atmospheric pressure." },
+      { term: "Proportional solenoid valve", definition: "An electrically controlled valve whose opening can be adjusted gradually to meter gas flow precisely." },
+      { term: "Tidal volume", definition: "The amount of gas moved into or out of the lungs during one breath." },
+      { term: "Tracheostomy", definition: "A surgically created opening through the neck into the windpipe, through which a breathing tube can be placed." },
+      { term: "Transducer", definition: "A sensor component that converts a physical quantity such as pressure into an electrical signal that the ventilator can measure." },
+      { term: "Ventilator-associated pneumonia", definition: "A lung infection that can develop in a person receiving invasive mechanical ventilation, often linked to the breathing tube and intensive-care setting.", aliases: "VAP" },
+      { term: "Ventilation mode", definition: "The rule the ventilator follows to deliver breaths, for example targeting a set volume or a set pressure." },
+      { term: "Waveform", definition: "A live graph on the ventilator display showing how pressure, flow or volume changes during each breath." },
+    ],
     references: [
       { title: "Basic components of a mechanical ventilator", url: "https://derangedphysiology.com/main/cicm-primary-exam/respiratory-system/Chapter-501/basic-components-mechanical-ventilator", source: "Deranged Physiology" },
       { title: "What Is a Medical Ventilator & How Does It Work?", url: "https://www.impactinstrumentation.com/", source: "Innovative Technologies in Medicine" },
@@ -202,6 +260,23 @@ export const devices: Device[] = [
 ];
 
 export const getDevice = (slug: string) => devices.find((d) => d.slug === slug);
+
+export type GlossaryEntry = GlossaryTerm & {
+  deviceName: string;
+  deviceSlug: string;
+  category: Category;
+};
+
+// Collective, device-tagged glossary. This is the seed for a future
+// question-and-answer bank: every definition stays attached to its device.
+export const glossaryEntries: GlossaryEntry[] = devices.flatMap((device) =>
+  (device.glossary ?? []).map((entry) => ({
+    ...entry,
+    deviceName: device.name,
+    deviceSlug: device.slug,
+    category: device.category,
+  })),
+);
 
 export const resourceTypes = ["Video", "Book", "Article", "Journal", "PDF", "Other"] as const;
 export type ResourceType = (typeof resourceTypes)[number];

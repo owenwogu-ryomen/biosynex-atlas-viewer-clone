@@ -5,12 +5,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="border-b border-border bg-background sticky top-0 z-20">
-        <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
-          <Link to="/" className="font-display text-lg tracking-tight">
+        <div className="mx-auto flex min-h-16 max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3 sm:px-6">
+          <Link to="/" className="whitespace-nowrap font-display text-base tracking-tight sm:text-lg">
             <span className="text-primary">●</span> Biosynex <span className="text-muted-foreground">Atlas</span>
           </Link>
-          <nav className="flex gap-6 text-sm font-mono">
+          <nav className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs sm:gap-6 sm:text-sm">
             <Link to="/equipment" className="hover:text-primary" activeProps={{ className: "text-primary" }}>Equipment</Link>
+            <Link to="/glossary" className="hover:text-primary" activeProps={{ className: "text-primary" }}>Glossary</Link>
             <Link to="/resources" className="hover:text-primary" activeProps={{ className: "text-primary" }}>Resources</Link>
           </nav>
         </div>

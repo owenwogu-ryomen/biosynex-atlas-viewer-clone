@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteShell } from "@/components/SiteShell";
 import { ViewerFrame } from "@/components/ViewerFrame";
@@ -28,6 +29,26 @@ export const Route = createFileRoute("/equipment/$slug")({
   },
   component: DevicePage,
 });
+
+function CollapsibleSection({
+  title,
+  children,
+  defaultOpen = false,
+}: {
+  title: string;
+  children: ReactNode;
+  defaultOpen?: boolean;
+}) {
+  return (
+    <details open={defaultOpen} className="group rounded-xl border border-border bg-card">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-6">
+        <h2 className="font-display text-xl">{title}</h2>
+        <span aria-hidden className="text-xl leading-none text-primary transition-transform group-open:rotate-45">+</span>
+      </summary>
+      <div className="px-6 pb-6">{children}</div>
+    </details>
+  );
+}
 
 function DevicePage() {
   const { device } = Route.useLoaderData();
@@ -124,16 +145,14 @@ function DevicePage() {
             </figure>
           )}
           <div className="mt-8 space-y-6">
-            {device.descriptions.map((s) => (
-              <article key={s.heading} className="rounded-xl border border-border bg-card p-6">
-                <h2 className="font-display text-xl">{s.heading}</h2>
-                <p className="mt-2 text-muted-foreground leading-relaxed whitespace-pre-line">{s.body}</p>
-              </article>
+            {device.descriptions.map((s, i) => (
+              <CollapsibleSection key={s.heading} title={s.heading} defaultOpen={i === 0}>
+                <p className="text-muted-foreground leading-relaxed whitespace-pre-line">{s.body}</p>
+              </CollapsibleSection>
             ))}
             {device.components && device.components.length > 0 && (
-              <article className="rounded-xl border border-border bg-card p-6">
-                <h2 className="font-display text-xl">Key Components</h2>
-                <dl className="mt-4 divide-y divide-border">
+              <CollapsibleSection title="Key Components">
+                <dl className="divide-y divide-border">
                   {device.components.map((c) => (
                     <div key={c.name} className="py-3 grid gap-1 sm:grid-cols-[220px_1fr]">
                       <dt className="font-medium">{c.name}</dt>
@@ -141,12 +160,30 @@ function DevicePage() {
                     </div>
                   ))}
                 </dl>
-              </article>
+              </CollapsibleSection>
+            )}
+            {device.glossary && device.glossary.length > 0 && (
+              <CollapsibleSection title="Glossary">
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Plain-language meanings for terms used on this page. The same tagged definitions are collected on the {" "}
+                  <Link to="/glossary" className="text-primary hover:underline">collective Glossary page</Link>, forming the seed of a future question-and-answer bank.
+                </p>
+                <dl className="mt-4 divide-y divide-border">
+                  {[...device.glossary].sort((a, b) => a.term.localeCompare(b.term)).map((g) => (
+                    <div key={g.term} className="grid gap-1 py-3 sm:grid-cols-[220px_1fr]">
+                      <dt className="font-medium">
+                        {g.term}
+                        {g.aliases && <span className="block text-xs font-normal text-muted-foreground">Also: {g.aliases}</span>}
+                      </dt>
+                      <dd className="text-sm text-muted-foreground">{g.definition}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </CollapsibleSection>
             )}
             {device.references && device.references.length > 0 && (
-              <article className="rounded-xl border border-border bg-card p-6">
-                <h2 className="font-display text-xl">References & Further Reading</h2>
-                <ul className="mt-3 divide-y divide-border">
+              <CollapsibleSection title="References & Further Reading">
+                <ul className="divide-y divide-border">
                   {device.references.map((r) => (
                     <li key={r.url}>
                       <a href={r.url} target="_blank" rel="noreferrer" className="flex items-center gap-4 py-3 hover:text-primary">
@@ -156,12 +193,11 @@ function DevicePage() {
                     </li>
                   ))}
                 </ul>
-              </article>
+              </CollapsibleSection>
             )}
             {related.length > 0 && (
-              <article className="rounded-xl border border-border bg-card p-6">
-                <h2 className="font-display text-xl">Further Study</h2>
-                <ul className="mt-3 divide-y divide-border">
+              <CollapsibleSection title="Further Study">
+                <ul className="divide-y divide-border">
                   {related.map((r) => (
                     <li key={r.url + r.title}>
                       <a href={r.url} target="_blank" rel="noreferrer" className="flex items-center gap-4 py-3 hover:text-primary">
@@ -172,7 +208,7 @@ function DevicePage() {
                     </li>
                   ))}
                 </ul>
-              </article>
+              </CollapsibleSection>
             )}
             <article className="rounded-xl border border-border bg-card p-6">
               <h2 className="font-display text-xl">Educational Use &amp; Sources</h2>
