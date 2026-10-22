@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { FeedbackWidget, openFeedback } from "./FeedbackWidget";
 
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
@@ -23,6 +24,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <div>
               <p className="font-display">For more information, contact us</p>
               <a href="mailto:owenwogu651@gmail.com" className="text-primary font-mono text-sm hover:underline">owenwogu651@gmail.com</a>
+              <button type="button" onClick={openFeedback} className="mt-3 block font-mono text-sm text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+                Give feedback
+              </button>
             </div>
             <p className="text-muted-foreground text-sm font-mono">© Biosynex Atlas</p>
           </div>
@@ -38,6 +42,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </div>
         </div>
       </footer>
+      <FeedbackWidget />
     </div>
   );
 }
