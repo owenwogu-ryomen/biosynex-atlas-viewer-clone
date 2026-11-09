@@ -17,10 +17,11 @@ export default defineConfig({
     },
     pages: [{ path: "/", prerender: { enabled: true } }],
   },
-  // Base path for this repository's own GitHub Pages deployment.
+  // Base path for this repository's GitHub Pages deployment. TanStack Start
+  // derives its router basepath from this value, so app links share the prefix.
   vite: {
-    base: '/biosynex-atlas-viewer-clone/',
+    base: "/biosynex-atlas-viewer-clone/",
   },
   // No server runtime on GitHub Pages — Start's prerendered output is the deployable site.
-  nitro: false
+  nitro: false,
 });
