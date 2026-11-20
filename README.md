@@ -200,7 +200,7 @@ public/        Small public files served with the website
 
 ## Running the project locally
 
-You need [Bun](https://bun.sh), the package manager used by this project.
+Use Node.js 22 (22.12 or newer) and [Bun](https://bun.sh) 1.4.4, the package manager pinned for this project. All build dependencies come from the public npm registry; no private registry login is required.
 
 After downloading a copy of this repository:
 
@@ -217,19 +217,49 @@ bun run build
 bun run lint
 ```
 
-The production build is created with:
+The GitHub Pages production build is created and verified with:
 
 ```sh
-bun run build
+bun run build:pages
 ```
+
+The publishable folder is `dist/client`, **not the repository root**. This command verifies the generated pages, local assets and project-prefixed links, then adds `404.html` and `.nojekyll`.
 
 ---
 
 ## Deployment
 
-When the `main` branch is updated, the included GitHub Actions workflow builds the static site and publishes it with GitHub Pages. The generated site includes the home page, equipment profiles, glossary, and resources pages.
+**This is a Vite/React static site. It does not use Jekyll, Ruby, or a Pages theme.** If the public site displays this README, GitHub has published the repository source instead of the compiled app.
 
-No application server or database is required for the current version.
+### One-time GitHub Pages setup
+
+1. Open **Settings → Pages** in this repository.
+2. Under **Build and deployment → Source**, select **GitHub Actions**. Do not select “Deploy from a branch”.
+3. Make sure GitHub Actions is enabled under **Settings → Actions → General**. Allow the actions used in `.github/workflows/deploy.yml` if the repository has an allowlist.
+4. Merge the fixes into `main`. The **Deploy to GitHub Pages** workflow tests the app, typechecks, builds all routes, verifies the output, and uploads **only `dist/client`**. Pull requests run the checks without deploying.
+5. Wait for both the build and deploy jobs to finish. If the `github-pages` environment requests approval, approve it in Actions. The workflow can also be rerun with **Actions → Deploy to GitHub Pages → Run workflow → main**.
+
+The public URL is <https://owenwogu-ryomen.github.io/biosynex-atlas-viewer-clone/>. Home, both device profiles, glossary and resources are generated as real static HTML, so direct links and refreshes work without an application server or database. The router, favicon, CSS, scripts and illustrations all use the repository URL prefix.
+
+### Apply this repair from Codespaces
+
+Run this in the Codespaces terminal while signed into GitHub CLI as an owner/admin who can change Pages settings and merge PR #1:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/owenwogu-ryomen/biosynex-atlas-viewer-clone/arena/c976998c-biosynex-atlas-viewer-clone/clone-fix-pages.sh | bash
+```
+
+The script configures Pages for GitHub Actions (or explains the manual setting if permissions prevent it), merges PR #1, explicitly starts the Vite deployment on `main`, and waits for the result. It does not reset, switch branches, or overwrite files in your Codespace. You can inspect `clone-fix-pages.sh` before running it. It is safe to rerun after PR #1 has already merged. Required review/branch protection rules still apply; the script does not bypass them.
+
+### If publishing fails
+
+- **README is still showing:** confirm Pages Source is **GitHub Actions**, then run the repository’s **Deploy to GitHub Pages** workflow on `main`. A successful generated “pages build and deployment / Build with Jekyll” run is not the correct build for this app.
+- **Permission/403 errors:** use your repository-owner GitHub CLI login (`gh auth status`), or change the Pages Source manually. No token belongs in source code.
+- **Build/install errors:** use the pinned Bun version and committed `bun.lock`; the workflow no longer relies on the private Lovable registry or a server/cloud deployment preset.
+- **Deployment is waiting:** check for required approval on the `github-pages` environment and any repository/organisation Actions policy.
+- **Old page after a successful Vite deployment:** hard-refresh or open a private browser window. Check the latest deployment’s commit and job results in Actions before assuming it is live.
+
+Third-party 3D models and external study links still require internet access and remain subject to their providers’ availability.
 
 ---
 
