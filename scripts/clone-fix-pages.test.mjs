@@ -112,3 +112,11 @@ test("explains the Actions policy blocker before merging if admin access is deni
   assert.match(result.stderr, /settings\/actions/);
   assert.doesNotMatch(result.commands, /pr merge|workflow run/);
 });
+
+test("allows explicitly confirmed manual setup without settings API access", () => {
+  const result = run({ BIOSYNEX_SETTINGS_CONFIRMED: "1", MOCK_POLICY_EXIT: "1" });
+  assert.equal(result.status, 0, result.stderr);
+  assert.doesNotMatch(result.commands, /api /);
+  assert.match(result.commands, /pr merge 1/);
+  assert.match(result.commands, /run watch/);
+});

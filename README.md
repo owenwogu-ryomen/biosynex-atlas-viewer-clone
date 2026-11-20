@@ -262,6 +262,14 @@ curl -fsSL https://raw.githubusercontent.com/owenwogu-ryomen/biosynex-atlas-view
 
 The script adds these exact Actions versions to the repository allowlist while preserving existing selections (or leaves an existing all-actions policy unchanged), configures Pages for GitHub Actions, merges PR #1, explicitly starts the Vite deployment on `main`, and waits for the result. If your Codespaces login cannot edit repository settings, it explains the manual setting and stops. It does not reset, switch branches, or overwrite files in your Codespace. You can inspect `clone-fix-pages.sh` before running it. It is safe to rerun after PR #1 has already merged. Required review/branch protection rules still apply; the script does not bypass them.
 
+If the Codespaces token cannot access settings even after you fix both settings in the browser, explicitly confirm the manual setup and run only the merge/deployment steps:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/owenwogu-ryomen/biosynex-atlas-viewer-clone/arena/c976998c-biosynex-atlas-viewer-clone/clone-fix-pages.sh | BIOSYNEX_SETTINGS_CONFIRMED=1 bash
+```
+
+Use this confirmation only after following the Pages Source and Actions permissions instructions above. It skips settings API calls, not tests, build validation or deployment-result checks.
+
 ### If publishing fails
 
 - **README is still showing:** confirm Pages Source is **GitHub Actions**, then run the repository’s **Deploy to GitHub Pages** workflow on `main`. A successful generated “pages build and deployment / Build with Jekyll” run is not the correct build for this app.
