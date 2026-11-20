@@ -22,6 +22,10 @@ case "$*" in
   'auth status') exit 0 ;;
   *'--json state'*) echo "\u0024{MOCK_STATE:-OPEN}" ;;
   *'--json headRefName'*) echo 'arena/c976998c-biosynex-atlas-viewer-clone' ;;
+  'api '*'/actions/permissions --jq '*) echo "\u0024{MOCK_POLICY:-local_only}" ;;
+  'api --method PUT '*'/actions/permissions -F '*) exit "\u0024{MOCK_POLICY_EXIT:-0}" ;;
+  'api '*'/actions/permissions/selected-actions --jq '*) echo '{}' ;;
+  'api --method PUT '*'/actions/permissions/selected-actions --input '*) cat >> "$MOCK_LOG"; exit "\u0024{MOCK_POLICY_EXIT:-0}" ;;
   'api --method PUT '*) exit "\u0024{MOCK_SETTINGS_EXIT:-0}" ;;
   'api '*'/pages --jq .build_type') echo "\u0024{MOCK_SOURCE:-workflow}" ;;
   'pr merge '*) exit "\u0024{MOCK_MERGE_EXIT:-0}" ;;
@@ -49,6 +53,9 @@ esac
 test("configures Pages, merges the explicit PR, dispatches main, and watches", () => {
   const result = run();
   assert.equal(result.status, 0, result.stderr);
+  assert.match(result.commands, /actions\/permissions -F enabled=true -f allowed_actions=selected/);
+  assert.match(result.commands, /actions\/permissions\/selected-actions --input -/);
+  assert.match(result.commands, /actions\/upload-artifact@v4/);
   assert.match(result.commands, /api --method PUT .*\/pages -f build_type=workflow/);
   assert.match(result.commands, /pr merge 1 --repo .* --merge/);
   assert.match(result.commands, /workflow run deploy.yml --repo .* --ref main/);
@@ -91,4 +98,17 @@ test("does not reopen or merge a closed PR", () => {
   const result = run({ MOCK_STATE: "CLOSED" });
   assert.notEqual(result.status, 0);
   assert.doesNotMatch(result.commands, /api --method PUT|pr merge|workflow run/);
+});
+
+test("does not replace an existing all-actions policy", () => {
+  const result = run({ MOCK_POLICY: "all" });
+  assert.equal(result.status, 0, result.stderr);
+  assert.doesNotMatch(result.commands, /allowed_actions=selected/);
+});
+
+test("explains the Actions policy blocker before merging if admin access is denied", () => {
+  const result = run({ MOCK_POLICY_EXIT: "1" });
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /settings\/actions/);
+  assert.doesNotMatch(result.commands, /pr merge|workflow run/);
 });
